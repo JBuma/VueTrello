@@ -1,6 +1,6 @@
 {
-  "name": "myproject",
-  "description": "A Vue.js project",
+  "name": "client",
+  "description": "A Vue.js client server",
   "version": "1.0.0",
   "author": "Julie <J-Buma@hotmail.com>",
   "license": "MIT",

@@ -21,20 +21,29 @@
       }
     },
     methods: {
-      register: function () {
-        authentication.register({
-            username: this.username,
-            password: this.password
-          })
-          .then(function (data) {
-            this.error = null
-            console.log(data)
-          })
-          .catch((err) => {
-            console.log(this.error)
-            this.error = err.response.data.error
-            console.log(this.error)
-          })
+      async register() {
+        try {
+          const response = await authentication.register({
+              username: this.username,
+              password: this.password
+            })
+            console.log('Good stuff')
+            console.log(response)
+            this.$router.push('project/'+response.data)
+            // .then(function (data) {
+            //   this.error = null
+            //   console.log('Good stuff')
+            //   console.log(data)
+            // })
+            // .catch((err) => {
+            //   console.log('Auth ERROR!', err)
+            //   this.error = err.response.data.error
+            //   console.log(this.error)
+            // })
+        } catch (err) {
+          console.log('Auth ERROR!', err)
+              this.error = err.response.data.error
+        }
       }
     }
   }

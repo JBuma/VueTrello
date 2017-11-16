@@ -13,7 +13,7 @@
   export default {
     components: {
       'navHeader': navHeader,
-      'projectItem': projectItem,
+      // 'projectItem': projectItem,
       // 'Hello':Hello
     },
     name: 'app',

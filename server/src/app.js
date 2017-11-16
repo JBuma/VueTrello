@@ -43,8 +43,10 @@ app.use(function (req, res, next) {
 // ROUTES
 // ==================
 const authRoutes = require('./routes/authRoutes')
+const projectRoutes = require('./routes/projectRoutes')
 
 app.use(authRoutes)
+app.use('/projects', projectRoutes)
 
 // app.get('/', function (req, res) {
 //   res.send('Hello there beepboop')

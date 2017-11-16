@@ -2,21 +2,27 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import home from '../components/Hello'
 import Register from '../components/Register'
+import singleProject from '../components/Project.vue'
 
 Vue.use(Router)
 
 export default new Router({
-	routes:[
-		{
-			path:'/',
-			name:'home',
-			component:home
-		},
-		{
-			path:'/register',
-			name:'register',
-			component:Register
-		}
-	],
-	mode:'history'
+  routes: [
+    {
+      path: '/',
+      name: 'home',
+      component: home
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: Register
+    },
+    {
+      path: '/project/:id',
+      name: 'project',
+      component: singleProject
+    }
+  ],
+  mode: 'history'
 })

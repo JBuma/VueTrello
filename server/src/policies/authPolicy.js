@@ -25,7 +25,7 @@ module.exports = {
           res.status(400).send({ error: 'Something went wrong!' })
         }
       } else {
-        console.log('Success!')
+        // console.log('Success!')
         next()
       }
     })

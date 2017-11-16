@@ -2,8 +2,8 @@
 	<nav id='navHeader'>
 		<div id='logo'>LOGO</div>
 		<div class='menu items'>
-			<div class='menu item'>Home</div>
-			<div class='menu item'>About</div>
+			<div @click="navTo({name:'home'})" class='menu item link'>Home</div>
+			<div class='menu item link'>About</div>
 		</div>
 	</nav>
 </template>
@@ -11,6 +11,11 @@
 	export default {
 		data() {
 			return {
+			}
+		},
+		methods:{
+			navTo (route){
+				this.$router.push(route);
 			}
 		}
 
@@ -36,5 +41,8 @@
 	}
 	.menu.item:hover{
 		background-color:#007070;
+	}
+	.link{
+		cursor:pointer;
 	}
 </style>

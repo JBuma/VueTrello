@@ -3,6 +3,10 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
+const passport = require('passport')
+const LocalStrategy = require('passport-local')
+const User = require('./models/User')
+const flash = require('connect-flash')
 
 mongoose.connect('mongodb://localhost/vuetrello')
 
@@ -10,6 +14,30 @@ const app = express()
 app.use(morgan('combined'))
 app.use(bodyParser.json())
 app.use(cors())
+app.use(flash())
+// ===================
+// PASSPORT CONFIG
+// ===================
+app.use(
+  require('express-session')({
+    secret: 'passport secret phrase',
+    resave: false,
+    saveUninitialized: false
+  })
+)
+app.use(passport.initialize())
+app.use(passport.session())
+passport.use(new LocalStrategy(User.authenticate()))
+passport.serializeUser(User.serializeUser())
+passport.deserializeUser(User.deserializeUser())
+
+// Check User Login on every page
+app.use(function (req, res, next) {
+  res.locals.currentUser = req.user
+  res.locals.error = req.flash('error')
+  res.locals.succes = req.flash('succes')
+  next()
+})
 
 // ==================
 // ROUTES

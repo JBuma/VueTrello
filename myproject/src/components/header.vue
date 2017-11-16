@@ -18,7 +18,7 @@
 </script>
 <style>
 	#navHeader{
-		background-color:teal;
+		background-color:#018E4C;
 		color:white;
 		display:flex;
 		justify-content:space-between;

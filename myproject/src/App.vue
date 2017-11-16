@@ -1,25 +1,24 @@
 <template>
   <div id="app">
-    <navHeader></navHeader>
-    
-    <h1>{{msg}}</h1>
-    <projectItem></projectItem>
+    <!-- <navHeader></navHeader> -->
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
   import navHeader from './components/header.vue'
   import projectItem from './components/projectItem.vue'
+  // import Hello from './components/Hello.vue'
   
   export default {
     components: {
       'navHeader': navHeader,
-      'projectItem': projectItem
+      'projectItem': projectItem,
+      // 'Hello':Hello
     },
     name: 'app',
     data() {
       return {
-        msg: 'Welcome to Your Vue.js App'
       }
     }
   }

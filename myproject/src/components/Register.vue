@@ -1,0 +1,114 @@
+<template>
+  <div id='app-register'>
+    <div class='registerPhoto'></div>
+    <div class='registerForm'>
+      <h1>Register</h1>
+      <input v-model="email" type='email' name='email' placeholder='Email' />
+      <input v-model="password" type='password' name='password' placeholder='Password' />
+      <button @click='register'>Submit</button>
+    </div>
+  </div>
+</template>
+<script>
+  import authentication from '../services/authentication'
+  export default {
+    data() {
+      return {
+        email: '',
+        password: '',
+      }
+    },
+    methods: {
+      register: function () {
+        authentication.register({
+            email: this.email,
+            password: this.password
+          })
+          .then(function (data) {
+            console.log(data)
+          })
+          .catch(function (err) {
+            console.log(err)
+          })
+      }
+    }
+  }
+
+</script>
+<style>
+  body {
+background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+  }
+
+  #app-register {
+    background-color: white;
+    max-width: 1000px;
+    margin: 15vh auto;
+    display:flex;
+    height:65vh;
+    box-shadow:0px 10px 20px rgba(0,0,0,0.2);
+    font-family: 'Raleway', sans-serif;
+    color:#111;
+  }
+  #app-register .registerPhoto{
+    background-color:#018E4C;
+    background:url('../assets/img/0fff4457606293.59dcb0946ca86.jpg');
+    background-size:contain;
+    background-repeat:no-repeat;
+    width:50%;
+    height:100%;
+    /* z-index:1; */
+  }
+  .registerForm{
+    margin:0 auto;
+    width:50%;
+    padding-left:5%;
+    padding-right:5%;
+    display:flex;
+    flex-direction:column;
+  }
+  .registerForm h1{
+    font-weight:200;
+    font-size:60px;
+
+  }
+  input[type='text'],
+  input[type='email'],
+  input[type='password']{
+    border:none;
+    padding:5px;
+    margin-top:15px;
+    margin-bottom:15px;
+    border-bottom:2px solid #EEE;
+    font-size:22px;
+    font-family:'Raleway';
+    transition:0.2s ease-out;
+  }
+  input[type='text']:focus,
+  input[type='email']:focus,
+  input[type='password']:focus{
+    border-bottom:2px solid #018E4C;
+  }
+button{
+  border-style:none;
+  background: #11998e;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #38ef7d, #11998e);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #38ef7d, #11998e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  color:white;
+  padding:12px 24px;
+  border-radius:25px;
+  font-family:'Raleway';
+  font-size:22px;
+  /* font-weight:700; */
+  letter-spacing:1px;
+  transition:0.2s ease-out;
+  box-shadow:0px 5px 20px 2px rgba(0,50,0,0.4)
+}
+button:hover,
+button:focus{
+  background-color:teal;
+  box-shadow:0px 3px 10px 0px rgba(0,50,0,0.6);
+  /* top:-222px; */
+}
+</style>

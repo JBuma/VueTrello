@@ -1,12 +1,12 @@
 <template>
-  <div id='app-register'>
-    <div class='registerPhoto'></div>
-    <div class='registerForm'>
-      <h1>Register</h1>
+  <div id='app-login'>
+    <div class='loginPhoto'></div>
+    <div class='loginForm'>
+      <h1>login</h1>
       <div v-if="error" class='error'>{{error}}</div>
       <input v-model="email" type='text' name='email' placeholder='email' />
       <input v-model="password" type='password' name='password' placeholder='Password' />
-      <button @click='register'>Submit</button>
+      <button @click='login'>Submit</button>
     </div>
   </div>
 </template>
@@ -21,13 +21,14 @@
       }
     },
     methods: {
-      async register() {
+      async login() {
         try {
-          const response = await authentication.register({
+          const response = await authentication.login({
               email: this.email,
               password: this.password
             })
-            this.$router.push('project/'+response.data)
+            // this.$router.push('project/'+response.data)
+            console.log()
         } catch (err) {
               this.error = err.response.data.error
         }
@@ -49,7 +50,7 @@
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
   }
 
-  #app-register {
+  #app-login {
     background-color: white;
     max-width: 1000px;
     margin: 15vh auto;
@@ -60,7 +61,7 @@
     color: #111;
   }
 
-  #app-register .registerPhoto {
+  #app-login .loginPhoto {
     background-color: #018E4C;
     background: url('../assets/img/0fff4457606293.59dcb0946ca86.jpg');
     background-size: contain;
@@ -70,7 +71,7 @@
     /* z-index:1; */
   }
 
-  .registerForm {
+  .loginForm {
     margin: 0 auto;
     width: 50%;
     padding-left: 5%;
@@ -79,7 +80,7 @@
     flex-direction: column;
   }
 
-  .registerForm h1 {
+  .loginForm h1 {
     font-weight: 200;
     font-size: 60px;
   }
@@ -127,6 +128,15 @@
     background-color: teal;
     box-shadow: 0px 3px 10px 0px rgba(0, 50, 0, 0.6);
     /* top:-222px; */
+  }
+
+  @media screen and (max-width:1000px){
+    .loginPhoto{
+      /* display:none; */
+    }
+    #app-login{
+      max-width:500px;
+    }
   }
 
 </style>

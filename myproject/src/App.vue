@@ -25,5 +25,10 @@
 </script>
 
 <style>
-  
+  body{
+    margin:0;
+    font-family: 'Raleway', sans-serif;
+    /* background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+    color:white; */
+  }
 </style>

@@ -1,9 +1,9 @@
 <template>
 	<nav id='navHeader'>
-		<div id='logo'>LOGO</div>
+		<div class='menu item link' @click="navTo({name:'home'})" id='logo'>LOGO</div>
 		<div class='menu items'>
-			<div @click="navTo({name:'home'})" class='menu item link'>Home</div>
-			<div class='menu item link'>About</div>
+			<div @click='navTo({name:"login"})' class='menu item link'>Login</div>
+			<div @click='navTo({name:"register"})' class='menu item link'>Signup</div>
 		</div>
 	</nav>
 </template>
@@ -16,6 +16,12 @@
 		methods:{
 			navTo (route){
 				this.$router.push(route);
+			},
+			makeRequest (route){
+				this.$http.get('http://localhost:3000/isLoggedIn')
+				.then(function(data){
+					console.log('Userdata: ',data)
+				})
 			}
 		}
 

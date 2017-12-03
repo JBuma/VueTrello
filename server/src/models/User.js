@@ -1,11 +1,46 @@
-var mongoose = require('mongoose')
-const passportLocalMongoose = require('passport-local-mongoose')
+const Promise = require('bluebird')
+const bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'))
 
-var userSchema = new mongoose.Schema({
-  username: String,
-  password: String
-})
+function hashPassword (user, options) {
+  const SALT_FACTOR = 8
 
-userSchema.plugin(passportLocalMongoose)
+  if (!user.changed('password')) {
+    return
+  }
 
-module.exports = mongoose.model('User', userSchema)
+  return bcrypt
+    .genSaltAsync(SALT_FACTOR)
+    .then(salt => bcrypt.hashAsync(user.password, salt, null))
+    .then(hash => {
+      console.log(user.password)
+      user.setDataValue('password', hash)
+    })
+}
+
+module.exports = (sequelize, DataTypes) => {
+  const User = sequelize.define(
+    'User',
+    {
+      email: {
+        type: DataTypes.STRING,
+        unique: true
+      },
+      password: DataTypes.STRING
+    },
+    {
+      hooks: {
+        beforeCreate: hashPassword,
+        beforeUpdate: hashPassword
+        // beforeSave: hashPassword
+      }
+    }
+  )
+
+  User.prototype.comparePassword = function (password) {
+    return bcrypt.compareAsync(password, this.password)
+  }
+
+  User.associate = function (models) {}
+
+  return User
+}

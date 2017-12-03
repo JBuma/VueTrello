@@ -8,5 +8,8 @@ export default {
   },
   getter(){
     return Api().get('');
+  },
+  login(credentials){
+    return Api().post(baseUrl+'login',credentials)
   }
 }

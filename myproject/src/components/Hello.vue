@@ -1,10 +1,14 @@
 <template>
 	<div>
-		<h1>Hello i am the hello template</h1>
+		<banner>Hello I am hello</banner>
 	</div>
 </template>
 <script>
+import Banner from './Banner.vue'
 	export default{
+		components:{
+			Banner
+		},
 		data(){
 			return {
 

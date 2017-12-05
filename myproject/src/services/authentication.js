@@ -1,6 +1,7 @@
 import Api from './Api'
+import Config from './config'
 
-var baseUrl = 'http://localhost:3000/'
+var baseUrl = Config.baseURL
 
 export default {
   register(info) {

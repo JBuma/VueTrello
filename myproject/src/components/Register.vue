@@ -4,14 +4,15 @@
     <div class='registerForm'>
       <h1>Register</h1>
       <div v-if="error" class='error'>{{error}}</div>
-      <input v-model="email" type='text' name='email' placeholder='email' />
-      <input v-model="password" type='password' name='password' placeholder='Password' />
+      <input v-on:keyup.enter='register' v-model="email" type='text' name='email' placeholder='email' />
+      <input v-on:keyup.enter='register' v-model="password" type='password' name='password' placeholder='Password' />
       <button @click='register'>Submit</button>
     </div>
   </div>
 </template>
 <script>
   import authentication from '../services/authentication'
+  import projectServices from '../services/projectServices'
   export default {
     data() {
       return {
@@ -24,12 +25,23 @@
       async register() {
         try {
           const response = await authentication.register({
-              email: this.email,
-              password: this.password
-            })
-            this.$router.push('project/'+response.data)
+            email: this.email,
+            password: this.password
+          })
+          console.log(response.data.user)
+
+          const project = await projectServices.create(response.data.user.id,{
+            name: 'My First Project',
+            description: 'Demo Project',
+            authorId: response.data.user.id,
+            content: 'empty'
+          })
+          console.log(project)
+          this.$router.push(project.data.authorId + '/projects/' + project.data.id)
+          // this.$router.push('project/'+response.data)
         } catch (err) {
-              this.error = err.response.data.error
+          console.log(err)
+          this.error = err.response.data.error
         }
       }
     }

@@ -4,6 +4,7 @@ import home from '../components/Hello'
 import Register from '../components/Register'
 import singleProject from '../components/Project.vue'
 import Login from '../components/Login.vue'
+import ProjectList from '../components/ProjectList.vue'
 
 Vue.use(Router)
 
@@ -25,9 +26,14 @@ export default new Router({
       component: Login
     },
     {
-      path: '/project/:id',
+      path: '/:userId/projects/:projectId',
       name: 'project',
       component: singleProject
+    },
+    {
+      path: '/:userId/projects',
+      name:'projects',
+      component: ProjectList
     }
   ],
   mode: 'history'

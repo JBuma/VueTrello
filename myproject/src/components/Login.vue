@@ -4,8 +4,8 @@
     <div class='loginForm'>
       <h1>login</h1>
       <div v-if="error" class='error'>{{error}}</div>
-      <input v-model="email" type='text' name='email' placeholder='email' />
-      <input v-model="password" type='password' name='password' placeholder='Password' />
+      <input v-on:keyup.enter='login' v-model="email" type='text' name='email' placeholder='email' />
+      <input v-on:keyup.enter='login' v-model="password" type='password' name='password' placeholder='Password' />
       <button @click='login'>Submit</button>
     </div>
   </div>
@@ -27,8 +27,9 @@
               email: this.email,
               password: this.password
             })
-            // this.$router.push('project/'+response.data)
-            console.log()
+            this.$store.dispatch('setToken',response.data.token)
+            this.$store.dispatch('setUser',response.data.user)
+            this.$router.push(response.data.user.id+'/projects')
         } catch (err) {
               this.error = err.response.data.error
         }
@@ -38,9 +39,6 @@
 
 </script>
 <style>
-  body {
-    background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
-  }
 
   .error {
     background-color: #D50000;
@@ -132,7 +130,7 @@
 
   @media screen and (max-width:1000px){
     .loginPhoto{
-      /* display:none; */
+      display:none;
     }
     #app-login{
       max-width:500px;

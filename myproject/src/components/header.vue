@@ -1,9 +1,13 @@
 <template>
 	<nav id='navHeader'>
 		<div class='menu item link' @click="navTo({name:'home'})" id='logo'>LOGO</div>
-		<div class='menu items'>
+		<div v-if='!$store.state.isUserLoggedIn' class='menu items'>
 			<div @click='navTo({name:"login"})' class='menu item link'>Login</div>
 			<div @click='navTo({name:"register"})' class='menu item link'>Signup</div>
+		</div>
+		<div v-if='$store.state.isUserLoggedIn' class='menu items'>
+			<div class='menu item'>Welcome, {{$store.state.user.email}}</div>
+			<div @click='logout()' class='menu item link'>Logout</div>
 		</div>
 	</nav>
 </template>
@@ -22,6 +26,11 @@
 				.then(function(data){
 					console.log('Userdata: ',data)
 				})
+			},
+			logout(){
+				this.$store.dispatch('setToken',null)
+				this.$store.dispatch('setUser',null)
+				this.$router.push({name: 'home'})
 			}
 		}
 

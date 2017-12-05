@@ -16,8 +16,10 @@ app.use(cors())
 // ROUTES
 // ==================
 const authRoutes = require('./routes/authRoutes')
+const projectRoutes = require('./routes/projectRoutes')
 
 app.use(authRoutes)
+app.use(projectRoutes)
 
 process.on('SIGINT', () => {
   console.log('Bye bye!')

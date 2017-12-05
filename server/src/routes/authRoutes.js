@@ -21,8 +21,10 @@ router.get('/', function (req, res) {
 // REGISTER
 router.post('/register', authPolicy.register, async function (req, res) {
   try {
+    // Create User and a demo project
     const user = await User.create(req.body)
     const userJson = user.toJSON()
+    // Send user info + Project link
     res.send({
       user: userJson,
       token: jwtSignUser(userJson)

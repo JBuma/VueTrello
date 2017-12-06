@@ -39,7 +39,6 @@ router.post('/register', authPolicy.register, async function (req, res) {
 router.post('/login', async function (req, res) {
   try {
     const { email, password } = req.body
-    console.log('body: ' + req.body.email)
     const user = await User.findOne({
       where: {
         email: email

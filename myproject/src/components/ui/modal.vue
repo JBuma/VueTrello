@@ -35,7 +35,7 @@
 	display:none;
 }
 .modal.center .modal-content{
-	position:absolute;
+	position:fixed;
 	top:30vh;
 	left:40vw;
 	background-color:red;
@@ -49,7 +49,7 @@
 	padding:5px 20px;
 }
 .modal .modal-back{
-	position:absolute;
+	position:fixed;
 	top:0;
 	left:0;
 	z-index:1;

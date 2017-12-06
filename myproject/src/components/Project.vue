@@ -24,7 +24,7 @@
     },
     async mounted() {
       try {
-        const response = await projectServices.show(this.$route.params.userId, this.$route.params.projectId)
+        const response = await projectServices.show(this.$store.state.user.id, this.$route.params.projectId)
 				// this.projectInfo = projectInfo
 				console.log('Project info: ',response.data.projectInfo)
 				this.projectInfo = response.data.projectInfo

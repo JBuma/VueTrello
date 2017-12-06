@@ -3,11 +3,10 @@ const router = express.Router()
 const { Project } = require('../models')
 
 // create route
-router.post('/:userId/projects/new', async function (req, res) {
+router.post('/user/:userId/projects/new', async function (req, res) {
   try {
-    var newProject = req.body
-    newProject.authorId = req.params.userId
-    const project = await Project.create(newProject)
+    console.log(req.body)
+    const project = await Project.create(req.body)
     res.send(project.toJSON())
   } catch (err) {
     res.status(500).send({
@@ -17,10 +16,10 @@ router.post('/:userId/projects/new', async function (req, res) {
 })
 
 // Show route
-router.get('/:userId/projects/:projectId', async function (req, res) {
+router.get('/user/:userId/project/:projectId', async function (req, res) {
   try {
     const project = await Project.findOne({
-      where: { id: req.params.projectId }
+      where: { id: req.params.projectId, authorId: req.params.userId }
     })
     var projectJson = project.toJSON()
     res.send({ projectInfo: projectJson })
@@ -32,14 +31,13 @@ router.get('/:userId/projects/:projectId', async function (req, res) {
 })
 
 // index route
-router.get('/:userId/projects', async function (req, res) {
+router.get('/user/:userId/projects/', async function (req, res) {
   try {
-    // var projectList = []
+    console.log('Id: ', req.body.userId)
     const projectList = await Project.findAll({
       where: {
         authorId: req.params.userId
-      },
-      limit: 10
+      }
     })
     res.send({ projectList })
   } catch (err) {

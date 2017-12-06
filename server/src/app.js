@@ -26,7 +26,7 @@ process.on('SIGINT', () => {
   process.exit()
 })
 
-sequelize.sync().then(() => {
+sequelize.sync({ force: true }).then(() => {
   app.listen(config.port, function () {
     console.log('server started on port ' + config.port)
   })

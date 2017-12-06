@@ -6,6 +6,7 @@ import {sync} from 'vuex-router-sync'
 import store from './store/store'
 
 Vue.use(VueResource)
+sync(store, router)
 
 new Vue({
   el: '#app',

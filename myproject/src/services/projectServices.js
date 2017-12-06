@@ -5,12 +5,13 @@ var baseUrl = Config.baseURL
 
 export default {
   index(userId) {
-    return Api().get(baseUrl  + userId + '/projects')
+    console.log('userId: ', userId)
+    return Api().get(baseUrl + 'user/' + userId+'/projects')
   },
   show(userId, projectId) {
-    return Api().get(baseUrl  + userId + '/projects/' + projectId)
+    return Api().get(baseUrl + 'user/' + userId + '/project/' + projectId)
   },
   create(userId, info) {
-    return Api().post(baseUrl + userId + '/projects/new', info)
+    return Api().post(baseUrl + 'user/'+userId+'/projects/new', info)
   }
 }

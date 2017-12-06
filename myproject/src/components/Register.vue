@@ -29,13 +29,18 @@
             password: this.password
           })
 
+          this.$store.dispatch('setToken',response.data.token)
+            this.$store.dispatch('setUser',response.data.user)
+
+          console.log('Response: ',response)
+          console.log('Data: ',response.data)
           const project = await projectServices.create(response.data.user.id,{
             name: 'My First Project',
             description: 'Demo Project',
             authorId: response.data.user.id,
             content: 'empty'
           })
-          this.$router.push(project.data.authorId + '/projects/' + project.data.id)
+          this.$router.push('/projects/' + project.data.id)
           // this.$router.push('project/'+response.data)
         } catch (err) {
           this.error = err.response.data.error

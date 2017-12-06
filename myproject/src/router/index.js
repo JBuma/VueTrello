@@ -26,12 +26,12 @@ export default new Router({
       component: Login
     },
     {
-      path: '/:userId/projects/:projectId',
+      path: '/projects/:projectId',
       name: 'project',
       component: singleProject
     },
     {
-      path: '/:userId/projects',
+      path: '/projects',
       name:'projects',
       component: ProjectList
     }

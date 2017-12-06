@@ -6,7 +6,7 @@
 			<div @click='navTo({name:"register"})' class='menu item link'>Signup</div>
 		</div>
 		<div v-if='$store.state.isUserLoggedIn' class='menu items'>
-			<div class='menu item'>Welcome, {{$store.state.user.email}}</div>
+			<div @click='navTo({name:"projects"})' class='menu item link'>Welcome, {{$store.state.user.email}}</div>
 			<div @click='logout()' class='menu item link'>Logout</div>
 		</div>
 	</nav>

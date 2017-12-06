@@ -5,7 +5,9 @@ const { Project } = require('../models')
 // create route
 router.post('/:userId/projects/new', async function (req, res) {
   try {
-    const project = await Project.create(req.body)
+    var newProject = req.body
+    newProject.authorId = req.params.userId
+    const project = await Project.create(newProject)
     res.send(project.toJSON())
   } catch (err) {
     res.status(500).send({

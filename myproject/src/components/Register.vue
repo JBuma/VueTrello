@@ -28,7 +28,6 @@
             email: this.email,
             password: this.password
           })
-          console.log(response.data.user)
 
           const project = await projectServices.create(response.data.user.id,{
             name: 'My First Project',
@@ -36,11 +35,9 @@
             authorId: response.data.user.id,
             content: 'empty'
           })
-          console.log(project)
           this.$router.push(project.data.authorId + '/projects/' + project.data.id)
           // this.$router.push('project/'+response.data)
         } catch (err) {
-          console.log(err)
           this.error = err.response.data.error
         }
       }

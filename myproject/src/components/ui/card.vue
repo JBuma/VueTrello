@@ -40,7 +40,9 @@
   padding:10px 10px;
   margin:0;
 }
-.card-title .link:hover{
+.card-title .link:hover,
+.card-title .link:focus
+{
   text-decoration:underline;
 }
 .card .card-meta{

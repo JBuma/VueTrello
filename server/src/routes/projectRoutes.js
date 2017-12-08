@@ -5,12 +5,11 @@ const { Project } = require('../models')
 // create route
 router.post('/user/:userId/projects/new', async function (req, res) {
   try {
-    console.log(req.body)
     const project = await Project.create(req.body)
     res.send(project.toJSON())
   } catch (err) {
     res.status(500).send({
-      error: 'An error has occured fetching your projects' // TODO: Make error message
+      error: 'An error has occured fetching your projects'
     })
   }
 })
@@ -33,7 +32,6 @@ router.get('/user/:userId/project/:projectId', async function (req, res) {
 // index route
 router.get('/user/:userId/projects/', async function (req, res) {
   try {
-    console.log('Id: ', req.params.userId)
     const projectList = await Project.findAll({
       where: {
         authorId: req.params.userId
@@ -41,7 +39,6 @@ router.get('/user/:userId/projects/', async function (req, res) {
     })
     res.send({ projectList })
   } catch (err) {
-    console.log(err)
     res.status(500).send({
       error: 'An error has occured creating your project, please try again'
     })

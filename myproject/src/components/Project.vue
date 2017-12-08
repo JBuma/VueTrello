@@ -20,7 +20,7 @@
       </div>
     </banner>
     <div id='itemList'>
-      <list v-for="item in items" :key='item.id'>
+      <list v-for="item in items" :key='item.id' v-bind:item-id='item.id'>
         <h3 slot='title'>{{item.name}}</h3>
         <div class='item-task' v-for="task in item.tasks" slot='body' :key='task.id'>
           {{task}}
@@ -33,7 +33,7 @@
 <script>
   import projectServices from '../services/projectServices'
   import itemServices from '../services/itemServices'
-  import list from './ui/list.vue'
+  import list from './list.vue'
   import Banner from './Banner.vue'
   import Modal from './ui/modal.vue'
   export default {
@@ -59,7 +59,6 @@
       }
     },
     async mounted() {
-      console.log(this.id)
       try {
         const response = await projectServices.show(this.$store.state.user.id, this.$route.params.projectId)
         // this.projectInfo = projectInfo
@@ -73,21 +72,23 @@
     },
     methods: {
       async createItem() {
-        try{
-        var newItem = await itemServices.create(this.$route.params.projectId, this.newItem)
-        console.log(newItem)
-        
-        this.items.push(newItem.data)
-        } catch(err){
-          alert(err)
+        try {
+          var newItem = await itemServices.create(this.$route.params.projectId, this.newItem)
+          console.log(newItem)
+
+          this.items.push(newItem.data)
+        } catch (err) {
+          console.log(err)
         }
       },
       openModal(name) {
-        this.$refs[name].openModal();
+        this.$refs[name].openModal()
+      },
+      closeModal(name) {
+        this.$refs[name].closeModal()
       }
     }
   }
-
 </script>
 <style>
   #projectInfo {
@@ -100,45 +101,11 @@
     margin-top: 0;
     margin-bottom: 0;
   }
-  /* TODO: Maken itemlist (internally) scrollable */
+  /* TODO: Make itemlist (internally) scrollable */
+  /* TODO: Make Lists as long as they are (no lengthening to neighbour length) */
   #itemList {
     display: flex;
-    flex-wrap:nowrap;
-  }
-
-  .task {
-    background-color: #eee;
-    margin: 10px;
-    padding: 10px;
-    width: 200px;
-    /* border-radius:5px; */
-    box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.2)
-  }
-
-  .task>h3 {
-    margin: 0
-  }
-
-  .newItem {
-    border: none;
-    border-bottom: 1px solid #999;
-  }
-
-  .item-task {
-    background-color: #EEE;
-    padding: 5px;
-    /* margin-bottom: 10px; */
-    /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */
-    -webkit-transition: 0.2s ease-out;
-    -moz-transition: 0.2s ease-out;
-    transition: 0.2s ease-out;
-    border: 3px solid #EEE;
-  }
-
-  .item-task:hover {
-    position: relative;
-    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
-    /* transform:translateY(-1px) */
+    flex-wrap: nowrap;
   }
 
   #itemList .card .card-body {

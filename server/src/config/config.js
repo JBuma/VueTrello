@@ -3,7 +3,7 @@ module.exports = {
   db: {
     database: process.env.DB_NAME || 'VueTrello',
     user: process.env.DB_USER || 'myAccount',
-    password: process.env.DB_PASS || '4lpine!r0sebud',
+    password: process.env.DB_PASS || 'barabingo',
     options: {
       dialect: process.env.DIALECT || 'sqlite',
       host: process.env.HOST || 'localhost',

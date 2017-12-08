@@ -5,7 +5,6 @@ const { Item } = require('../models')
 // CREATE
 router.post('/project/:projectId/items/new', async function (req, res) {
   try {
-    console.log('Item create body: ', req.body)
     const item = await Item.create(req.body)
     console.log(item)
     res.send(item.toJSON())

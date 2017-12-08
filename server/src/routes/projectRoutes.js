@@ -33,7 +33,7 @@ router.get('/user/:userId/project/:projectId', async function (req, res) {
 // index route
 router.get('/user/:userId/projects/', async function (req, res) {
   try {
-    console.log('Id: ', req.body.userId)
+    console.log('Id: ', req.params.userId)
     const projectList = await Project.findAll({
       where: {
         authorId: req.params.userId

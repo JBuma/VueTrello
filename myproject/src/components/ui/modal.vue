@@ -22,9 +22,6 @@
 		},
 		openModal(){
 			this.closed = false;
-		},
-		newProject(thing){
-			alert(thing)
 		}
 	}
   }

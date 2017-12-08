@@ -4,7 +4,7 @@
 	  <h1><slot></slot></h1>
   <slot name='description'></slot>
   </div>
-  <slot  name='controls'></slot>
+  <slot class='banner-controls' name='controls'></slot>
   </div>
 </template>
 <script>

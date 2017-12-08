@@ -1,13 +1,13 @@
 <template>
-  <div class='card'>
-	  <div class='card-title'><slot name='title'></slot></div>
-    <div class='card-body'>
-      <slot name='body'></slot>
-    </div>
-    <div class='card-description'>
+  <div class='list'>
+	  <div class='list-title'><slot name='title'></slot></div>
+    <div class='list-description'>
       <slot name='description'></slot>
     </div>
-    <div class='card-meta'>
+	<div class='list-body'>
+      <slot name='body'></slot>
+    </div>
+    <div class='list-meta'>
       <slot name='meta'></slot>
     </div>
   </div>
@@ -22,32 +22,32 @@
 
 </script>
 <style>
-.card{
+.list{
   background-color:white;
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
   /* height:400px; */
   width:250px;
   margin:25px;
 }
-.card .card-body{
-  height:200px;
+.list .list-body{
+  /* height:200px; */
   background-color:teal;
 }
-.card .card-description{
+.list .list-description{
   padding:10px;
 }
-.card .card-title h3{
+.list .list-title h3{
   background-color:#018E4C;
   color:white;
   padding:10px 10px;
   margin:0;
 }
-.card-title .link:hover,
-.card-title .link:focus
+.list-title .link:hover,
+.list-title .link:focus
 {
   text-decoration:underline;
 }
-.card .card-meta{
+.list .list-meta{
   font-size:12px;
   font-style:italic;
   background-color:#fcfcfc;

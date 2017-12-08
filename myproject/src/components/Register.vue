@@ -13,6 +13,7 @@
 <script>
   import authentication from '../services/authentication'
   import projectServices from '../services/projectServices'
+  import itemServices from '../services/itemServices'
   export default {
     data() {
       return {
@@ -40,6 +41,15 @@
             authorId: response.data.user.id,
             content: 'empty'
           })
+          
+          itemServices.create(project.data.id,{
+            name: 'My First Item',
+            ProjectId: project.data.id,
+            authorId: response.data.user.id,
+            description: 'EMPTY',
+            dueDate: 'TOMORROW'
+          })
+
           this.$router.push('/projects/' + project.data.id)
           // this.$router.push('project/'+response.data)
         } catch (err) {

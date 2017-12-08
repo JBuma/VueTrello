@@ -17,16 +17,18 @@ app.use(cors())
 // ==================
 const authRoutes = require('./routes/authRoutes')
 const projectRoutes = require('./routes/projectRoutes')
+const itemRoutes = require('./routes/itemRoutes')
 
 app.use(authRoutes)
 app.use(projectRoutes)
+app.use(itemRoutes)
 
 process.on('SIGINT', () => {
   console.log('Bye bye!')
   process.exit()
 })
 
-sequelize.sync({ force: true }).then(() => {
+sequelize.sync().then(() => {
   app.listen(config.port, function () {
     console.log('server started on port ' + config.port)
   })

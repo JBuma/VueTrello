@@ -19,14 +19,16 @@
         <button @click='openModal("new-item")'>New</button>
       </div>
     </banner>
-    <div id='itemList'>
-      <list v-for="item in items" :key='item.id' v-bind:item-id='item.id'>
-        <h3 slot='title'>{{item.name}}</h3>
-        <div class='item-task' v-for="task in item.tasks" slot='body' :key='task.id'>
-          {{task}}
-        </div>
-        <p slot='description'>{{item.description}}</p>
-      </list>
+    <div id='thing'>
+      <div id='itemList'>
+        <list v-for="item in items" :key='item.id' v-bind:item-id='item.id'>
+          <h3 slot='title'>{{item.name}}</h3>
+          <div class='item-task' v-for="task in item.tasks" slot='body' :key='task.id'>
+            {{task}}
+          </div>
+          <p slot='description'>{{item.description}}</p>
+        </list>
+      </div>
     </div>
   </div>
 </template>
@@ -89,28 +91,50 @@
       }
     }
   }
+
 </script>
 <style>
+  html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    /* display:flex; */
+  }
+
+  #app {
+    height: 100vh;
+  }
+
+  .banner {
+
+    left: 0;
+  }
+
   #projectInfo {
     background-color: teal;
     color: white;
     padding: 20px;
+    /* height:100%; */
   }
 
   #projectInfo h1 {
     margin-top: 0;
     margin-bottom: 0;
   }
-  /* TODO: Make itemlist (internally) scrollable */
-  /* TODO: Make Lists as long as they are (no lengthening to neighbour length) */
-  #itemList {
-    display: flex;
-    flex-wrap: nowrap;
-  }
+  /* TODO: Make styles not terrible */
 
-  #itemList .card .card-body {
-    background-color: white;
-    /* min-height:200px; */
+  #projectView {
+    min-height: 85%;
+    /* overflow-x:auto; */
+  }
+  #thing{
+    height:78vh;
+  }
+  #itemList {
+    min-height:100%;
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
   }
 
   .new-item {

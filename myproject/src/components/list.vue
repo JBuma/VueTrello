@@ -17,7 +17,7 @@
   </div>
 </template>
 <script>
-import taskServices from '../services/taskServices'
+  import taskServices from '../services/taskServices'
   export default {
     props: ['itemId'],
     data() {
@@ -29,7 +29,7 @@ import taskServices from '../services/taskServices'
           description: 'PLACEHOLDER',
           dueDate: 'PLACEHOLDER',
           isFinished: false,
-          ItemId:this.itemId
+          ItemId: this.itemId
         },
         tasks: []
       }
@@ -37,20 +37,22 @@ import taskServices from '../services/taskServices'
     methods: {
       async createTask() {
         try {
-          const task = await taskServices.create(this.$store.state.user.id, this.newTask)
-          console.log(task)
-          this.tasks.push(task.data)
-          this.newTask.name = ''
+          if (this.newTask.name !== '') {
+            const task = await taskServices.create(this.$store.state.user.id, this.newTask)
+            console.log(task)
+            this.tasks.push(task.data)
+            this.newTask.name = ''
+          }
         } catch (error) {
           console.log(error)
         }
       }
     },
-    async mounted(){
-      try{
+    async mounted() {
+      try {
         const tasks = await taskServices.index(this.itemId)
         this.tasks = tasks.data.taskList
-      } catch(error){
+      } catch (error) {
         console.log(error)
       }
     }
@@ -61,33 +63,33 @@ import taskServices from '../services/taskServices'
   .list {
     background-color: white;
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-    /* height:400px; */
     width: 250px;
     margin: 25px;
+    height:100%;
+    flex-shrink:0;
+    max-height:100%;
+    /* overflow-y:auto; */
   }
-
+  .list-body{
+    max-height:30vh;
+    overflow-y:auto;
+  }
   .task {
     padding: 5px 10px;
   }
-
   .task:hover {
     background-color: #eee;
   }
 
   .list .list-description {
     padding: 10px;
+    background-color:#FAFAFA;
   }
-
   .list .list-title h3 {
     background-color: #018E4C;
     color: white;
     padding: 10px 10px;
     margin: 0;
-  }
-
-  .list-title .link:hover,
-  .list-title .link:focus {
-    text-decoration: underline;
   }
 
   .list .list-meta {
@@ -104,9 +106,7 @@ import taskServices from '../services/taskServices'
     width: 96%;
     padding: 5px;
   }
-
   .new-task input:focus {
     border-bottom: 2px solid #018E4C;
   }
-
 </style>

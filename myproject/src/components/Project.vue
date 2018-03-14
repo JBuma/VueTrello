@@ -1,15 +1,6 @@
 <template>
 	<section id='projectView'>
-		<modal name='new-item' ref='new-item'>
-			<h1>New item</h1>
-			<form nosubmit class='new-item'>
-				<label>Item Name</label>
-				<input type='text' v-model="newItem.name">
-				<label>Item Description</label>
-				<input type='text' v-model="newItem.description">
-				<button @click='createItem' type='button'>Submit</button>
-			</form>
-		</modal>
+
 
 		<banner>{{projectInfo.name}}
 			<p slot='description'>{{projectInfo.description}}
@@ -20,16 +11,28 @@
 				<button @click='openModal("new-item")'>New</button>
 			</div>
 		</banner>
-			<div id='itemList'>
-				<list v-for="item in items" :key='item.id' v-bind:item-id='item.id'>
-					<h3 slot='title'>{{item.name}}</h3>
-					<div class='item-task' v-for="task in item.tasks" slot='body' :key='task.id'>
-						{{task}}
-					</div>
-					<p slot='description'>{{item.description}}</p>
-				</list>
-			</div>
+		<div id='itemList'>
+			<list v-for="item in items" :key='item.id' v-bind:item-id='item.id'>
+				<h3 slot='title'>{{item.name}}</h3>
+				<div class='item-task' v-for="task in item.tasks" slot='body' :key='task.id'>
+					{{task}}
+				</div>
+				<p slot='description'>{{item.description}}</p>
+			</list>
+		</div>
+		<modal name='new-item' ref='new-item'>
+			<h1 slot="header" >New item</h1>
+			<form nosubmit class='new-item' slot="body">
+				<label for="new-item--name" >Item Name</label>
+				<input type='text' id='new-item--name' v-model="newItem.name">
+				<label for='new-item--descr'>Item Description</label>
+				<input type='text' id='new-item--descr' v-model="newItem.description">
+				<button @click='createItem' type='button'>Submit</button>
+			</form>
+			<div slot="footer" class='modal empty' ></div>
+		</modal>
 	</section>
+
 </template>
 <script>
 import projectServices from '../services/projectServices';
@@ -118,11 +121,12 @@ export default {
 <style lang='scss'>
 @import '~vars';
 /* TODO: Make styles not terrible */
+
 #projectView {
 	display: grid;
-	grid-template-rows: minmax(50px, 150px) 1fr;
-	// grid-template-columns: 1fr;
+	grid-template-rows: minmax(50px, 150px) 1fr; // grid-template-columns: 1fr;
 }
+
 #itemList {
 	max-width: 100%;
 	display: flex;
@@ -130,5 +134,10 @@ export default {
 	justify-content: left;
 	align-items: flex-start;
 	overflow-x: auto;
+}
+
+form.new-item {
+	display: flex;
+	flex-flow: column nowrap;
 }
 </style>

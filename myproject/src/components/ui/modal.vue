@@ -1,56 +1,133 @@
 <template>
-  <div v-if="!closed" :class='position' class='modal'>
-	  <div class='modal-back' @click='closeModal'></div>
-	  <div class='modal-content'>
-		  <div><slot></slot></div>
-	  </div>
-  </div>
+	<transition name="modal-fade" >
+		<div v-if="!closed" :class='position' class='modal modal-back'>
+			<div class='modal-content'>
+				<header class="modal-header">
+					<slot name="header">
+						<h1>Default Modal</h1>
+					</slot>
+					<button class='modal-close cross' @click="closeModal">X</button>
+				</header>
+				<div class="modal-body">
+					<slot name="body">
+						<p>Default Body</p>
+					</slot>
+				</div>
+				<footer class="modal-footer">
+					<slot name="footer">
+						<p>Default Footer</p>
+						<button class='modal-close' @click="closeModal">Close</button>
+					</slot>
+				</footer>
+			</div>
+		</div>
+	</transition>
 </template>
 <script>
 export default {
-  props: ['name'],
-  data() {
-    return {
-      position: 'center',
-      closed: true,
-      // name:''
-    };
-  },
-  methods: {
-    closeModal() {
-      this.closed = true;
-    },
-    openModal() {
-      this.closed = false;
-    },
-  },
+	props: ['name'],
+	data() {
+		return {
+			position: 'center',
+			closed: true,
+			// name:''
+		};
+	},
+	methods: {
+		closeModal(e) {
+			e.stopPropagation();
+			this.closed = true;
+		},
+		openModal() {
+			this.closed = false;
+		},
+	},
 };
 </script>
 <style lang='scss'>
-.modal.closed {
-  display: none;
+@import '~vars';
+.modal {
+	&.empty {
+		padding: 0;
+		margin: 0;
+	}
+
+	&.modal-back {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 1;
+		background-color: rgba(0, 0, 0, 0.3);
+		height: 100vh;
+		width: 100vw;
+	}
+
+	.modal-header,
+	.modal-footer {
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: space-between;
+		align-items: center;
+		color: $text-alt;
+
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6,
+		p {
+			margin: 0;
+		}
+	}
+	.modal-header {
+		background-color: $color-primary;
+		padding: $padding-medium;
+	}
+	.modal-body {
+		padding: $padding-large;
+	}
+	.modal-footer {
+		background-color: $color-primary-light;
+		padding: $padding-small;
+	}
+
+	.modal-content {
+		display: flex;
+		flex-flow: column nowrap;
+		justify-content: space-between;
+		background-color: $color-background-light;
+		min-height: 50vh;
+		min-width: 50vw;
+		color: $text-primary;
+	}
+
+	.modal-close {
+		padding: $padding-medium;
+		line-height: 1em;
+
+		&:hover {
+			cursor: pointer;
+		}
+
+		&.cross {
+			background-color: transparent;
+			font-weight: 700;
+			color: $text-alt;
+			box-shadow: none;
+		}
+	}
 }
-.modal.center .modal-content {
-  position: fixed;
-  top: 30vh;
-  left: 40vw;
-  background-color: red;
-  height: 30vh;
-  min-width: 400px;
-  width: 40vw;
-  z-index: 2;
-  color: white;
+.modal-fade-enter,
+.modal-fade-leave-active {
+	opacity: 0;
 }
-.modal-content > div {
-  padding: 5px 20px;
-}
-.modal .modal-back {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  background-color: rgba(0, 0, 0, 0.5);
-  height: 100vh;
-  width: 100vw;
+
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+	transition: opacity 0.3s ease;
 }
 </style>

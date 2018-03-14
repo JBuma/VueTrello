@@ -50,6 +50,7 @@ body {
 input[type='text'],
 input[type='email'],
 input[type='password'] {
+	font-size: 16px;
 	border: none;
 	padding: $padding-small;
 	margin-top: $padding-medium;

@@ -47,4 +47,19 @@ router.get('/item/:itemId/tasks', async function (req, res) {
   }
 })
 
+router.post('/item/:itemId/:taskId', async function (req, res) {
+  // try {
+  //   var task = Task.find({
+  //     where: {
+  //       id: taskId,
+  //       itemId: itemId
+  //     }
+  //   })
+  // } catch (err) {
+  //   res.status(500).send({
+  //     error: err
+  //   })
+  // }
+})
+
 module.exports = router

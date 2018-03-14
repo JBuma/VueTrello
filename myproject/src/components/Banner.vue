@@ -8,41 +8,32 @@
   </div>
 </template>
 <script>
-  export default {
-    data() {
-      return {
-        title: 'hello world!'
-      }
-    }
-  }
-
+export default {
+	data() {
+		return {
+			title: 'hello world!',
+		};
+	},
+};
 </script>
-<style>
-  .banner {
-    background-color: teal;
-    color: white;
-    padding: 20px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-  }
+<style lang='scss'>
+@import '~vars';
+.banner {
+	max-width: 100vw;
+	background-color: $color-primary-light;
+	color: $text-alt;
+	padding: $padding-large;
 
-  .banner h1 {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-  .banner-controls{
-    
-  }
-  .banner-controls button{
-    border-style:none;
-    background-color:#018E4C;
-    color:white;
-    padding:1em 2em;
-    font-family:'Raleway';
-    font-size:1em;
-    /* font-weight:bold; */
-    letter-spacing:1px;
-    border-radius:25px;
-  }
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	h1 {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+}
+.banner-controls button {
+	font-size: $text-default;
+}
 </style>

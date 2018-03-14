@@ -1,156 +1,96 @@
 <template>
-  <div id='app-register'>
-    <div class='registerPhoto'></div>
-    <div class='registerForm'>
-      <h1>Register</h1>
-      <div v-if="error" class='error'>{{error}}</div>
-      <input v-on:keyup.enter='register' v-model="email" type='text' name='email' placeholder='email' />
-      <input v-on:keyup.enter='register' v-model="password" type='password' name='password' placeholder='Password' />
-      <button @click='register'>Submit</button>
-    </div>
-  </div>
+	<div id='app-register'>
+		<div class='registerForm'>
+			<h1>Register</h1>
+			<div v-if="error" class='error'>{{error}}</div>
+			<input v-on:keyup.enter='register' v-model="email" type='text' name='email' placeholder='email' />
+			<input v-on:keyup.enter='register' v-model="password" type='password' name='password' placeholder='Password' />
+			<button @click='register'>Submit</button>
+		</div>
+	</div>
 </template>
 <script>
-  import authentication from '../services/authentication'
-  import projectServices from '../services/projectServices'
-  import itemServices from '../services/itemServices'
-  export default {
-    data() {
-      return {
-        email: '',
-        password: '',
-        error: null
-      }
-    },
-    methods: {
-      async register() {
-        try {
-          const response = await authentication.register({
-            email: this.email,
-            password: this.password
-          })
+import authentication from '../services/authentication';
+import projectServices from '../services/projectServices';
+import itemServices from '../services/itemServices';
+export default {
+	data() {
+		return {
+			email: '',
+			password: '',
+			error: null,
+		};
+	},
+	methods: {
+		async register() {
+			try {
+				const response = await authentication.register({
+					email: this.email,
+					password: this.password,
+				});
 
-          this.$store.dispatch('setToken',response.data.token)
-            this.$store.dispatch('setUser',response.data.user)
+				this.$store.dispatch('setToken', response.data.token);
+				this.$store.dispatch('setUser', response.data.user);
 
-          console.log('Response: ',response)
-          console.log('Data: ',response.data)
-          const project = await projectServices.create(response.data.user.id,{
-            name: 'My First Project',
-            description: 'Demo Project',
-            authorId: response.data.user.id,
-            content: 'empty'
-          })
-          
-          itemServices.create(project.data.id,{
-            name: 'My First Item',
-            ProjectId: project.data.id,
-            authorId: response.data.user.id,
-            description: 'EMPTY',
-            dueDate: 'TOMORROW'
-          })
+				console.log('Response: ', response);
+				console.log('Data: ', response.data);
+				const project = await projectServices.create(
+					response.data.user.id,
+					{
+						name: 'My First Project',
+						description: 'Demo Project',
+						authorId: response.data.user.id,
+						content: 'empty',
+					},
+				);
 
-          this.$router.push('/projects/' + project.data.id)
-          // this.$router.push('project/'+response.data)
-        } catch (err) {
-          this.error = err.response.data.error
-        }
-      }
-    }
-  }
+				itemServices.create(project.data.id, {
+					name: 'My First Item',
+					ProjectId: project.data.id,
+					authorId: response.data.user.id,
+					description: 'EMPTY',
+					dueDate: 'TOMORROW',
+				});
 
+				this.$router.push('/projects/' + project.data.id);
+				// this.$router.push('project/'+response.data)
+			} catch (err) {
+				this.error = err.response.data.error;
+			}
+		},
+	},
+};
 </script>
 <style>
-  body {
-    background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
-  }
+.error {
+	background-color: #d50000;
+	color: white;
+	padding: 5px;
+	box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+}
 
-  .error {
-    background-color: #D50000;
-    color: white;
-    /* border-radius:5px; */
-    padding: 5px;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
-  }
+#app-register {
+	background-color: white;
+	max-width: 1000px;
+	margin: 15vh auto;
+	display: flex;
+	height: 65vh;
+	box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+	font-family: 'Raleway', sans-serif;
+	color: #111;
+}
 
-  #app-register {
-    background-color: white;
-    max-width: 1000px;
-    margin: 15vh auto;
-    display: flex;
-    height: 65vh;
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-    font-family: 'Raleway', sans-serif;
-    color: #111;
-  }
+.registerForm {
+	margin: 0 auto;
+	width: 50%;
+	padding-left: 5%;
+	padding-right: 5%;
+	display: flex;
+	flex-direction: column;
+}
 
-  #app-register .registerPhoto {
-    background-color: #018E4C;
-    background: url('../assets/img/0fff4457606293.59dcb0946ca86.jpg');
-    background-size: contain;
-    background-repeat: no-repeat;
-    width: 50%;
-    height: 100%;
-    /* z-index:1; */
-  }
-
-  .registerForm {
-    margin: 0 auto;
-    width: 50%;
-    padding-left: 5%;
-    padding-right: 5%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .registerForm h1 {
-    font-weight: 200;
-    font-size: 60px;
-  }
-
-  input[type='text'],
-  input[type='email'],
-  input[type='password'] {
-    border: none;
-    padding: 5px;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #EEE;
-    font-size: 22px;
-    font-family: 'Raleway';
-    transition: 0.2s ease-out;
-  }
-
-  input[type='text']:focus,
-  input[type='email']:focus,
-  input[type='password']:focus {
-    border-bottom: 2px solid #018E4C;
-  }
-
-  button {
-    border-style: none;
-    background: #11998e;
-    /* fallback for old browsers */
-    background: -webkit-linear-gradient(to left, #38ef7d, #11998e);
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left, #38ef7d, #11998e);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    color: white;
-    padding: 12px 24px;
-    border-radius: 25px;
-    font-family: 'Raleway';
-    font-size: 22px;
-    /* font-weight:700; */
-    letter-spacing: 1px;
-    transition: 0.2s ease-out;
-    box-shadow: 0px 5px 20px 2px rgba(0, 50, 0, 0.4)
-  }
-
-  button:hover,
-  button:focus {
-    background-color: teal;
-    box-shadow: 0px 3px 10px 0px rgba(0, 50, 0, 0.6);
-    /* top:-222px; */
-  }
-
+.registerForm h1 {
+	font-weight: 200;
+	font-size: 60px;
+}
 </style>

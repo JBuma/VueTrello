@@ -7,52 +7,50 @@
   </div>
 </template>
 <script>
-  export default {
-	  props:['name'],
-    data() {
-      return {
-		position: 'center',
-		closed: true,
-		// name:''
-      }
-	},
-	methods:{
-		closeModal(){
-			this.closed = true;
-		},
-		openModal(){
-			this.closed = false;
-		}
-	}
-  }
-
+export default {
+  props: ['name'],
+  data() {
+    return {
+      position: 'center',
+      closed: true,
+      // name:''
+    };
+  },
+  methods: {
+    closeModal() {
+      this.closed = true;
+    },
+    openModal() {
+      this.closed = false;
+    },
+  },
+};
 </script>
-<style>
-.modal.closed{
-	display:none;
+<style lang='scss'>
+.modal.closed {
+  display: none;
 }
-.modal.center .modal-content{
-	position:fixed;
-	top:30vh;
-	left:40vw;
-	background-color:red;
-	height:30vh;
-	min-width:400px;
-	width:40vw;
-	z-index:2;
-	color:white;
+.modal.center .modal-content {
+  position: fixed;
+  top: 30vh;
+  left: 40vw;
+  background-color: red;
+  height: 30vh;
+  min-width: 400px;
+  width: 40vw;
+  z-index: 2;
+  color: white;
 }
-.modal-content > div{
-	padding:5px 20px;
+.modal-content > div {
+  padding: 5px 20px;
 }
-.modal .modal-back{
-	position:fixed;
-	top:0;
-	left:0;
-	z-index:1;
-	background-color:rgba(0,0,0,0.5);
-	height:100vh;
-	width:100vw;
+.modal .modal-back {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100vh;
+  width: 100vw;
 }
-
 </style>

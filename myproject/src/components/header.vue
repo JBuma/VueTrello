@@ -12,52 +12,50 @@
 	</nav>
 </template>
 <script>
-	export default {
-		data() {
-			return {
-			}
+export default {
+	data() {
+		return {};
+	},
+	methods: {
+		navTo(route) {
+			this.$router.push(route);
 		},
-		methods:{
-			navTo (route){
-				this.$router.push(route);
-			},
-			makeRequest (route){
-				this.$http.get('http://localhost:3000/isLoggedIn')
-				.then(function(data){
-					console.log('Userdata: ',data)
-				})
-			},
-			logout(){
-				this.$store.dispatch('setToken',null)
-				this.$store.dispatch('setUser',null)
-				this.$router.push({name: 'home'})
-			}
-		}
-
-	}
+		makeRequest(route) {
+			this.$http
+				.get('http://localhost:3000/isLoggedIn')
+				.then(function(data) {
+					console.log('Userdata: ', data);
+				});
+		},
+		logout() {
+			this.$store.dispatch('setToken', null);
+			this.$store.dispatch('setUser', null);
+			this.$router.push({ name: 'home' });
+		},
+	},
+};
 </script>
-<style>
-	#navHeader{
-		background-color:#018E4C;
-		color:white;
-		display:flex;
-		justify-content:space-between;
-	}
-	#logo{
-		padding:20px;
-	}
-	.menu.items{
-		display:flex;
-		justify-content:center;
-		align-items:center;
-	}
-	.menu.item{
-		padding:20px;
-	}
-	.menu.item:hover{
-		background-color:#007070;
-	}
-	.link{
-		cursor:pointer;
-	}
+<style lang='scss'>
+@import '~vars';
+#navHeader {
+	background-color: $color-primary;
+	color: $text-alt;
+	display: flex;
+	justify-content: space-around;
+}
+.menu.items {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.menu.item {
+	padding: $padding-large;
+	height: 70px;
+}
+.menu.item:hover {
+	background-color: $color-primary-light;
+}
+.link {
+	cursor: pointer;
+}
 </style>

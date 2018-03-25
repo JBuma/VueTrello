@@ -8,11 +8,9 @@
 					</slot>
 					<button class='modal-close cross' @click="closeModal">X</button>
 				</header>
-				<div class="modal-body">
-					<slot name="body">
+					<slot name="body" class='tst'>
 						<p>Default Body</p>
 					</slot>
-				</div>
 				<footer class="modal-footer">
 					<slot name="footer">
 						<p>Default Footer</p>
@@ -88,7 +86,36 @@ export default {
 		padding: $padding-medium;
 	}
 	.modal-body {
-		padding: $padding-large;
+		padding: $padding-medium;
+
+		&.show-task{
+			display:grid;
+			grid-template-columns:3fr 1fr;
+			grid-template-rows:minmax(0px, 50px) minmax(75px, 1fr) 1fr;
+			grid-template-areas: 
+								'description categories'
+								'new-comment categories'
+								'comments	 resources';
+			.description{
+				grid-area: description;
+			}
+			.categories{
+				grid-area:categories;
+			}
+			.new-comment{
+				grid-area:new-comment;
+			}
+			.comments{
+				grid-area:comments;
+			}
+			.resources{
+				grid-area:resources;
+			}
+
+			p{
+				margin:0;
+			}
+		}
 	}
 	.modal-footer {
 		background-color: $color-primary-light;
@@ -96,9 +123,11 @@ export default {
 	}
 
 	.modal-content {
-		display: flex;
-		flex-flow: column nowrap;
-		justify-content: space-between;
+		// display: flex;
+		// flex-flow: column nowrap;
+		// justify-content: space-between;
+		display:grid;
+		grid-template-rows:minmax(0px,50px) 1fr minmax(0px, 50px);
 		background-color: $color-background-light;
 		min-height: 50vh;
 		min-width: 50vw;

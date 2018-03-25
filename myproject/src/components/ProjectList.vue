@@ -89,7 +89,7 @@ export default {
 .project-list {
 	padding: $padding-huge;
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(100px, 300px));
 	grid-gap: 10px;
 }
 

@@ -7,7 +7,7 @@
 			<slot name='description'></slot>
 		</div>
 		<div class='list-body'>
-			<div class='task' v-for="task in tasks" :key='task.id' v-bind:class="{'is-finished':task.isFinished}" @click='toggleFinished(task.id)'
+			<div class='task' draggable="true" ondragstart="this.dragstart(event)" v-for="task in tasks" :key='task.id' v-bind:class="{'is-finished':task.isFinished}" @click='showTask(task.id)'
 			    v-bind:id="task.id">
 				<p>{{task.name}}</p>
 			</div>
@@ -51,14 +51,24 @@ export default {
 				console.log(error);
 			}
 		},
-		async toggleFinished(id) {
-			try {
-				const task = await taskServices.show(this.itemId, id);
-				console.table(task.data);
-			} catch (error) {
-				console.log(error);
-			}
+		async showTask(id) {
+			// try {
+			// 	const task = await taskServices.show(this.itemId, id);
+			// 	console.table(task.data);
+			// } catch (error) {
+			// 	console.log(error);
+			// }
+			let taskShow = {};
+			this.tasks.forEach(task => {
+				if(task.id===id){
+					taskShow = task;
+				}
+			})
+			this.$emit('show-task',{...taskShow});
 		},
+		dragstart: function(ev){
+			console.log(ev)
+		}
 	},
 	async mounted() {
 		try {
@@ -102,21 +112,30 @@ export default {
 		overflow-y: auto;
 
 		.task {
+			box-sizing:border-box;
 			background-color: $color-background-light;
 			box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
 			padding: $padding-medium;
 			margin: $padding-small;
+			transition: box-shadow 0.1s linear;
 
 			p {
 				margin: 0;
+				height: 1.2em;
 				white-space: nowrap;
 				overflow: hidden;
 				text-overflow: ellipsis;
 			}
 
 			&:hover {
-				background-color: $color-background-smokey;
+				background-color: $color-background-darklight;
+				cursor: pointer;
 			}
+			&:active{
+				// border:1px solid $color-background-smokey;
+			// border-bottom: 1px solid #eee;
+			box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
+		}
 		}
 	}
 
@@ -139,6 +158,7 @@ export default {
 		&:focus {
 			border-bottom: 3px solid $color-primary-light;
 		}
+		
 	}
 }
 </style>

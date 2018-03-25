@@ -1,7 +1,5 @@
 <template>
 	<section id='projectView'>
-
-
 		<banner>{{projectInfo.name}}
 			<p slot='description'>{{projectInfo.description}}
 				<br/>
@@ -12,7 +10,7 @@
 			</div>
 		</banner>
 		<div id='itemList'>
-			<list v-for="item in items" :key='item.id' v-bind:item-id='item.id'>
+			<list v-for="item in items" :key='item.id' v-bind:item-id='item.id' @show-task='showTask'>
 				<h3 slot='title'>{{item.name}}</h3>
 				<div class='item-task' v-for="task in item.tasks" slot='body' :key='task.id'>
 					{{task}}
@@ -30,6 +28,16 @@
 				<button @click='createItem' type='button'>Submit</button>
 			</form>
 			<div slot="footer" class='modal empty' ></div>
+		</modal>
+		<modal name='show-task' ref='show-task'>
+			<h1 slot="header">{{currentItem.name}}</h1>
+			<div slot='body' class='show-task modal-body'>
+				<p class='description'>{{currentItem.description}}</p>
+				<div class='categories'>categories</div>
+				<div class='new-comment'>new-comment</div>
+				<div class='comments'>comments</div>
+				<div class='resources'>resources</div>
+			</div>
 		</modal>
 	</section>
 
@@ -60,7 +68,8 @@ export default {
 				authorId: this.$store.state.user.id,
 				dueDate: 'blah',
 			},
-			listHeight: 0,
+			currentItem: {
+			}
 		};
 	},
 	async mounted() {
@@ -78,8 +87,6 @@ export default {
 		} catch (err) {
 			console.log(err);
 		}
-
-		this.listStyle();
 		console.log(this.listHeight);
 	},
 	methods: {
@@ -102,18 +109,10 @@ export default {
 		closeModal(name) {
 			this.$refs[name].closeModal();
 		},
-		listStyle() {
-			let bannerHeight = document.querySelector('div.banner')
-				.clientHeight;
-			console.log(bannerHeight);
-			let headerHeight = document.getElementById('navHeader')
-				.clientHeight;
-			console.log(headerHeight);
-			let windowHeight = document.scrollingElement.clientHeight;
-			this.listHeight = `height:${windowHeight -
-				bannerHeight -
-				headerHeight}px;`;
-		},
+		showTask(task){
+			this.currentItem = task;
+			this.openModal('show-task');
+		}
 	},
 	computed: {},
 };

@@ -28,7 +28,7 @@ export default {
 
 	.card-body {
 		height: 200px;
-		background-color: teal;
+		background-color: $color-accent;
 	}
 
 	.card-description {

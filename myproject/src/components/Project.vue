@@ -20,7 +20,7 @@
 		</div>
 		<modal name='new-item' ref='new-item'>
 			<h1 slot="header" >New item</h1>
-			<form nosubmit class='new-item' slot="body">
+			<form nosubmit class='new-item modal-body' slot="body" >
 				<label for="new-item--name" >Item Name</label>
 				<input type='text' id='new-item--name' v-model="newItem.name">
 				<label for='new-item--descr'>Item Description</label>
@@ -29,16 +29,9 @@
 			</form>
 			<div slot="footer" class='modal empty' ></div>
 		</modal>
-		<modal name='show-task' ref='show-task'>
-			<h1 slot="header">{{currentItem.name}}</h1>
-			<div slot='body' class='show-task modal-body'>
-				<p class='description'>{{currentItem.description}}</p>
-				<div class='categories'>categories</div>
-				<div class='new-comment'>new-comment</div>
-				<div class='comments'>comments</div>
-				<div class='resources'>resources</div>
-			</div>
-		</modal>
+		<showTask :task='currentItem' ref='show-task'>
+
+		</showTask>
 	</section>
 
 </template>
@@ -48,11 +41,13 @@ import itemServices from '../services/itemServices';
 import list from './list.vue';
 import Banner from './Banner.vue';
 import Modal from './ui/modal.vue';
+import showTask from './ui/showTask.vue';
 export default {
 	components: {
 		Banner,
 		list,
 		Modal,
+		showTask,
 	},
 	data() {
 		return {
@@ -68,8 +63,7 @@ export default {
 				authorId: this.$store.state.user.id,
 				dueDate: 'blah',
 			},
-			currentItem: {
-			}
+			currentItem: {},
 		};
 	},
 	async mounted() {
@@ -78,7 +72,8 @@ export default {
 				this.$store.state.user.id,
 				this.$route.params.projectId,
 			);
-			this.projectInfo = response.data.projectInfo;
+			console.log(response);
+			this.projectInfo = response.data;
 
 			const items = await itemServices.index(
 				this.$route.params.projectId,
@@ -87,7 +82,6 @@ export default {
 		} catch (err) {
 			console.log(err);
 		}
-		console.log(this.listHeight);
 	},
 	methods: {
 		async createItem() {
@@ -109,10 +103,11 @@ export default {
 		closeModal(name) {
 			this.$refs[name].closeModal();
 		},
-		showTask(task){
+		showTask(task) {
+			console.log('Parent:', this.$refs);
 			this.currentItem = task;
-			this.openModal('show-task');
-		}
+			this.$refs['show-task'].open();
+		},
 	},
 	computed: {},
 };

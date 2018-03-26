@@ -37,7 +37,7 @@ router.get('/user/:userId/projects/', async function (req, res) {
 				authorId: req.params.userId,
 			},
 		});
-		res.send({ projectList, });
+		res.status(200).send({ projectList, });
 	} catch (err) {
 		res.status(500).send({
 			error:

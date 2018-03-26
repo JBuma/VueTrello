@@ -13,7 +13,11 @@ export default {
 	create(itemId, info) {
 		return Api().post(baseUrl + 'item/' + itemId + '/tasks/new', info);
 	},
-	post(taskId, task) {
-		return Api().post(`${baseUrl}item/${itemId}/task/${taskId}`, task);
+	post(task) {
+		// console.log(`item/${task.itemId}/task/${task.id}`);
+		return Api().post(
+			`${baseUrl}item/${task.ItemId}/task/${task.id}`,
+			task,
+		);
 	},
 };

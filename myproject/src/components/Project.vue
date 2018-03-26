@@ -12,9 +12,9 @@
 		<div id='itemList'>
 			<list v-for="item in items" :key='item.id' v-bind:item-id='item.id' @show-task='showTask'>
 				<h3 slot='title'>{{item.name}}</h3>
-				<div class='item-task' v-for="task in item.tasks" slot='body' :key='task.id'>
+				<!-- <div class='item-task' v-for="task in item.tasks" slot='body' :key='task.id'>
 					{{task}}
-				</div>
+				</div> -->
 				<p slot='description'>{{item.description}}</p>
 			</list>
 		</div>
@@ -29,9 +29,72 @@
 			</form>
 			<div slot="footer" class='modal empty' ></div>
 		</modal>
-		<showTask :task='currentItem' ref='show-task'>
+		<!-- TODO: Actually get the data from the database, this is still all hardcoded -->
+		<modal name='test' ref="show-task" id='show-task'>
+			<h1 slot="header">{{currentItem.name}} 
+			</h1>
+			<div slot="body" class='modal-body'>
+				<div class="main">
+					<div class="description">
+						<p>
+							{{currentItem.description}}
+						</p>
+						<input type="text" name="task-name" id="task-name" v-model='currentItem.name' @change='updateTask("name")'>
+					</div>
+					<div class="comments">
+						<div class="new-comment"></div>
+						<div class="comment"></div>
+						<div class="comment"></div>
+						<div class="comment"></div>
+					</div>
 
-		</showTask>
+				</div>
+				<div class="info">
+					<h3>Categories</h3>
+					<div class="categories">
+						
+						<div class="category purple"></div>
+						<div class="category yellow"></div>
+						<div class="category green"></div>
+						<div class="category green"></div>
+						<div class="category green"></div>
+						<div class="category green"></div>
+						<div class="category green"></div>
+					</div>
+					<h3>Members</h3>
+					<div class="members">
+						
+						<div class="member">JB</div>
+						<div class="member">UD</div>
+						<div class="member">YM</div>
+					</div>
+					<h3>Due Date</h3>
+					<div class="due-date">
+						31 date at 12:00
+					</div>
+					<h3>Add</h3>
+					<div class="actions">
+						<ul>
+							<li>
+								<button>
+									Member
+								</button>
+							</li>
+							<li>
+								<button>
+									Category
+								</button>
+							</li>
+							<li>
+								<button>
+									Checklist
+								</button>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</modal>
 	</section>
 
 </template>
@@ -42,6 +105,7 @@ import list from './list.vue';
 import Banner from './Banner.vue';
 import Modal from './ui/modal.vue';
 import showTask from './ui/showTask.vue';
+import taskServices from '../services/taskServices';
 export default {
 	components: {
 		Banner,
@@ -53,8 +117,7 @@ export default {
 		return {
 			id: this.$route.params.projectId,
 			projectInfo: {},
-			info: {},
-			newItemName: '',
+			// newItemName: '',
 			items: [],
 			newItem: {
 				name: '',
@@ -72,8 +135,9 @@ export default {
 				this.$store.state.user.id,
 				this.$route.params.projectId,
 			);
-			console.log(response);
+			// console.log(response);
 			this.projectInfo = response.data;
+			console.log(this.projectInfo);
 
 			const items = await itemServices.index(
 				this.$route.params.projectId,
@@ -90,8 +154,6 @@ export default {
 					this.$route.params.projectId,
 					this.newItem,
 				);
-				console.log(newItem);
-
 				this.items.push(newItem.data);
 			} catch (err) {
 				console.log(err);
@@ -104,9 +166,15 @@ export default {
 			this.$refs[name].closeModal();
 		},
 		showTask(task) {
-			console.log('Parent:', this.$refs);
 			this.currentItem = task;
-			this.$refs['show-task'].open();
+			this.$refs['show-task'].openModal();
+		},
+		async updateTask(task) {
+			try {
+				await taskServices.post(this.currentItem);
+			} catch (err) {
+				alert(err);
+			}
 		},
 	},
 	computed: {},
@@ -114,8 +182,6 @@ export default {
 </script>
 <style lang='scss'>
 @import '~vars';
-/* TODO: Make styles not terrible */
-
 #projectView {
 	display: grid;
 	grid-template-rows: minmax(50px, 150px) 1fr; // grid-template-columns: 1fr;
@@ -133,5 +199,99 @@ export default {
 form.new-item {
 	display: flex;
 	flex-flow: column nowrap;
+}
+
+#show-task {
+	.modal-content {
+		min-width: 70vw;
+		min-height: 70vh;
+	}
+
+	.modal-body {
+		display: flex;
+		flex-flow: row nowrap;
+
+		.info {
+			flex-grow: 1;
+			// padding: $padding-medium;
+			// background-color: teal;
+			max-width: 175px;
+			display: flex;
+			flex-flow: column nowrap;
+			justify-content: flex-start;
+			// align-items: center;
+
+			& > h3 {
+				margin-top: $padding-huge;
+			}
+
+			& > .categories {
+				display: flex;
+				flex-flow: row wrap;
+
+				.category {
+					width: 50px;
+					height: 25px;
+					border-radius: 5px;
+					margin: $padding-small;
+
+					&.purple {
+						background-color: purple;
+					}
+					&.yellow {
+						background-color: yellow;
+					}
+					&.green {
+						background-color: greenyellow;
+					}
+				}
+			}
+
+			& > .members {
+				display: flex;
+				flex-flow: row wrap;
+
+				.member {
+					width: 50px;
+					height: 50px;
+					// padding: 16px;
+					background-color: grey;
+					border-radius: 50%;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+				}
+			}
+
+			& > .actions {
+				// text-align: center;
+				display: flex;
+				flex-flow: column nowrap;
+
+				& > ul {
+					list-style: none;
+					padding: 0;
+					margin: 0;
+					display: flex;
+					flex-flow: column nowrap;
+
+					& > li {
+						margin-bottom: $padding-small;
+					}
+				}
+			}
+		}
+		.main {
+			flex-grow: 3;
+			padding-right: $padding-medium;
+		}
+	}
+
+	button {
+		font-size: 16px;
+		padding: 8px;
+		background-color: grey;
+		border-radius: 0;
+	}
 }
 </style>

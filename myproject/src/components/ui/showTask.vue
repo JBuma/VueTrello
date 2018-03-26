@@ -1,6 +1,7 @@
 <template>
 	<modal name='test' ref="show-task" class='show-task'>
-		<h1 slot="header">{{task.name}}</h1>
+		<h1 slot="header">{{task.name}} <input type="text" name="task-name" id="task-name" :value='task.name'>
+		</h1>
 		<div slot="body" class='modal-body'>
 			<div class="main">
 				<div class="description">

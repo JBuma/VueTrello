@@ -7,7 +7,7 @@ router.post('/project/:projectId/items/new', async function (req, res) {
 	try {
 		const item = await Item.create(req.body);
 		console.log(item);
-		res.send(item.toJSON());
+		res.status(200).send(item.toJSON());
 	} catch (err) {
 		res.status(500).send({
 			error: err,
@@ -18,13 +18,13 @@ router.post('/project/:projectId/items/new', async function (req, res) {
 // SHOW
 router.get('/project/:projectId/item/:itemId', async function (req, res) {
 	try {
-		const item = await Item.findOne({
+		let item = await Item.findOne({
 			where: {
 				id: req.params.itemId,
 				projectId: req.params.projectId,
 			},
 		});
-		res.send(item.toJSON());
+		res.status(200).send(item.toJSON());
 	} catch (err) {
 		res.status(500).send({
 			error: err,
@@ -40,7 +40,7 @@ router.get('/project/:projectId/items', async function (req, res) {
 				projectId: req.params.projectId,
 			},
 		});
-		res.send({ itemList, });
+		res.status(200).send({ itemList, });
 	} catch (err) {
 		res.status(500).send({
 			error: err,

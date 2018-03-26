@@ -7,8 +7,7 @@
 			<slot name='description'></slot>
 		</div>
 		<div class='list-body'>
-			<div class='task' draggable="true" ondragstart="this.dragstart(event)" v-for="task in tasks" :key='task.id' v-bind:class="{'is-finished':task.isFinished}" @click='showTask(task.id)'
-			    v-bind:id="task.id">
+			<div class='task' v-for="task in tasks" :key='task.id' v-bind:class="{'is-finished':task.isFinished}" @click='showTask(task.id)'>
 				<p>{{task.name}}</p>
 			</div>
 		</div>
@@ -20,7 +19,7 @@
 <script>
 import taskServices from '../services/taskServices';
 export default {
-	props: ['itemId'],
+	props: ['itemId', 'tasksNew'],
 	data() {
 		return {
 			info: {},
@@ -43,7 +42,6 @@ export default {
 						this.$store.state.user.id,
 						this.newTask,
 					);
-					console.log(task);
 					this.tasks.push(task.data);
 					this.newTask.name = '';
 				}
@@ -52,23 +50,18 @@ export default {
 			}
 		},
 		async showTask(id) {
-			// try {
-			// 	const task = await taskServices.show(this.itemId, id);
-			// 	console.table(task.data);
-			// } catch (error) {
-			// 	console.log(error);
-			// }
 			let taskShow = {};
 			this.tasks.forEach(task => {
-				if(task.id===id){
+				if (task.id === id) {
 					taskShow = task;
+					return;
 				}
-			})
-			this.$emit('show-task',{...taskShow});
+			});
+			this.$emit('show-task', taskShow);
 		},
-		dragstart: function(ev){
-			console.log(ev)
-		}
+		dragstart: function(ev) {
+			console.log(ev);
+		},
 	},
 	async mounted() {
 		try {
@@ -112,7 +105,7 @@ export default {
 		overflow-y: auto;
 
 		.task {
-			box-sizing:border-box;
+			box-sizing: border-box;
 			background-color: $color-background-light;
 			box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
 			padding: $padding-medium;
@@ -131,11 +124,11 @@ export default {
 				background-color: $color-background-darklight;
 				cursor: pointer;
 			}
-			&:active{
+			&:active {
 				// border:1px solid $color-background-smokey;
-			// border-bottom: 1px solid #eee;
-			box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
-		}
+				// border-bottom: 1px solid #eee;
+				box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
+			}
 		}
 	}
 
@@ -158,7 +151,6 @@ export default {
 		&:focus {
 			border-bottom: 3px solid $color-primary-light;
 		}
-		
 	}
 }
 </style>

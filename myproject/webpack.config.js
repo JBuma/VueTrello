@@ -68,6 +68,7 @@ if (process.env.NODE_ENV === 'production') {
 		new webpack.DefinePlugin({
 			'process.env': {
 				NODE_ENV: '"production"',
+				BASE_URL: JSON.stringify('45.76.39.40'),
 			},
 		}),
 		new webpack.optimize.UglifyJsPlugin({

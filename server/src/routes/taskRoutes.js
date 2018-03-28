@@ -6,7 +6,7 @@ const { Task, } = require('../models');
 router.post('/item/:itemId/tasks/new', async function (req, res) {
 	try {
 		const task = await Task.create(req.body);
-		res.send(task.toJSON());
+		res.status(200).send(task.toJSON());
 	} catch (err) {
 		res.status(500).send({
 			error: err,
@@ -23,7 +23,7 @@ router.get('/item/:itemId/task/:taskId', async function (req, res) {
 				itemId: req.params.itemId,
 			},
 		});
-		res.send(task.toJSON());
+		res.status(200).send(task.toJSON());
 	} catch (err) {
 		res.status(500).send({
 			error: err,
@@ -39,7 +39,7 @@ router.get('/item/:itemId/tasks', async function (req, res) {
 				itemId: req.params.itemId,
 			},
 		});
-		res.send({ taskList, });
+		res.status(200).send({ taskList, });
 	} catch (err) {
 		res.status(500).send({
 			error: err,
@@ -47,6 +47,7 @@ router.get('/item/:itemId/tasks', async function (req, res) {
 	}
 });
 
+// EDIT
 router.post('/item/:itemId/task/:taskId', async function (req, res) {
 	try {
 		const newTask = req.body;
@@ -58,7 +59,7 @@ router.post('/item/:itemId/task/:taskId', async function (req, res) {
 		});
 		task.update(newTask).then(() => {
 			// console.log('UPDATED', task);
-			res.send(task.toJSON());
+			res.status(200).send(task.toJSON());
 		});
 	} catch (err) {
 		res.status(500).send({

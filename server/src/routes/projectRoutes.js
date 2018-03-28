@@ -46,4 +46,23 @@ router.get('/user/:userId/projects/', async function (req, res) {
 	}
 });
 
+// Update
+router.post('/user/:userId/project/:projectId', async function (req, res) {
+	try {
+		const project = await Project.findOne({
+			where: {
+				authorId: req.params.userId,
+				id: req.params.projectId,
+			},
+		});
+		project.update(req.body).then(() => {
+			res.status(200).send(project.toJSON());
+		});
+	} catch (err) {
+		res.status(500).send({
+			error: err,
+		});
+	}
+});
+
 module.exports = router;

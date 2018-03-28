@@ -48,4 +48,21 @@ router.get('/project/:projectId/items', async function (req, res) {
 	}
 });
 
+// EDIT
+router.post('/project/:projectId/item/:itemId', async function (req, res) {
+	try {
+		console.log(req.body);
+		var item = await Item.findOne({
+			where: {
+				id: req.params.itemId,
+				projectId: req.params.projectId,
+			},
+		});
+		item.update(req.body).then(() => {
+			res.status(200).send(item.toJSON());
+		});
+	} catch (err) {
+		res.status(500).send({ error: err, });
+	}
+});
 module.exports = router;

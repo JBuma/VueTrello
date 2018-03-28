@@ -13,8 +13,7 @@ export default {
 	create(itemId, info) {
 		return Api().post(baseUrl + 'item/' + itemId + '/tasks/new', info);
 	},
-	post(task) {
-		// console.log(`item/${task.itemId}/task/${task.id}`);
+	update(task) {
 		return Api().post(
 			`${baseUrl}item/${task.ItemId}/task/${task.id}`,
 			task,

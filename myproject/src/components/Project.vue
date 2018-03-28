@@ -1,6 +1,9 @@
 <template>
 	<section id='projectView'>
-		<banner>{{projectInfo.name}}
+		<!--Banner with some project info
+			TODO: Add The author/Team | Editing info -->
+		<banner>
+			{{projectInfo.name}}
 			<p slot='description'>{{projectInfo.description}}
 				<br/>
 				<em>Author: {{projectInfo.author}}</em>
@@ -9,15 +12,14 @@
 				<button @click='openModal("new-item")'>New</button>
 			</div>
 		</banner>
+		<!-- All the items in the project, every item is in a list which will fetch it's own tasks when mounted -->
 		<div id='itemList'>
 			<list v-for="item in items" :key='item.id' v-bind:item-id='item.id' @show-task='showTask'>
 				<h3 slot='title'>{{item.name}}</h3>
-				<!-- <div class='item-task' v-for="task in item.tasks" slot='body' :key='task.id'>
-					{{task}}
-				</div> -->
 				<p slot='description'>{{item.description}}</p>
 			</list>
 		</div>
+		<!-- Modal with the form to create a new item, only needs a name and a description -->
 		<modal name='new-item' ref='new-item'>
 			<h1 slot="header" >New item</h1>
 			<form nosubmit class='new-item modal-body' slot="body" >
@@ -30,6 +32,7 @@
 			<div slot="footer" class='modal empty' ></div>
 		</modal>
 		<!-- TODO: Actually get the data from the database, this is still all hardcoded -->
+		<!-- Show The currently selected task, currently only show the name and description -->
 		<modal name='test' ref="show-task" id='show-task'>
 			<h1 slot="header">{{currentItem.name}} 
 			</h1>
@@ -171,7 +174,7 @@ export default {
 		},
 		async updateTask(task) {
 			try {
-				await taskServices.post(this.currentItem);
+				await taskServices.update(this.currentItem);
 			} catch (err) {
 				alert(err);
 			}

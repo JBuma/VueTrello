@@ -2,20 +2,25 @@
 	<div>
 		<banner>Hello I am hello</banner>
 		<section id='intro'>
-			<code>This is a trello clone, frontend made with vue, backend made with nodeJs.</code>
+			<card type='centered'>
+				<h1 slot="title" >Hello there</h1>
+				<p slot="description" >
+					This is a trello clone made with vueJs
+				</p>
+			</card>
 		</section>
 	</div>
 </template>
 <script>
-import Banner from './Banner.vue'
-	export default{
-		components:{
-			Banner
-		},
-		data(){
-			return {
-
-			}
-		}
-	}
+import Banner from './Banner.vue';
+import Card from './ui/card.vue';
+export default {
+	components: {
+		Banner,
+		Card,
+	},
+	data() {
+		return {};
+	},
+};
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class='card'>
+  <div class='card' :class='type'>
 	  <div class='card-title'><slot name='title'></slot></div>
     <div class='card-body'>
       <slot name='body'></slot>
@@ -14,6 +14,12 @@
 </template>
 <script>
 export default {
+	props: {
+		type: {
+			type: String,
+			// required:true
+		},
+	},
 	data() {
 		return {};
 	},
@@ -26,6 +32,10 @@ export default {
 	box-shadow: $box-shadow--large $box-shadow--color-default;
 	width: 250px;
 
+	&.centered {
+		margin: 0 auto;
+	}
+
 	.card-body {
 		height: 200px;
 		background-color: $color-accent;
@@ -36,12 +46,12 @@ export default {
 	}
 
 	.card-title {
-		h3 {
-			background-color: #018e4c;
-			color: white;
-			padding: 10px 10px;
-			margin: 0;
-		}
+		// h3 {
+		background-color: #018e4c;
+		color: white;
+		padding: 10px 10px;
+		margin: 0;
+		// }
 		.link:hover,
 		.link:focus {
 			text-decoration: underline;

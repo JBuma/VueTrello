@@ -33,16 +33,14 @@
 		</modal>
 		<!-- TODO: Actually get the data from the database, this is still all hardcoded -->
 		<!-- Show The currently selected task, currently only show the name and description -->
+		<!-- TODO: Make into its own component -->
+		<!-- TODO: Put the currentitem in vuex state -->
 		<modal name='test' ref="show-task" id='show-task'>
-			<h1 slot="header">{{currentItem.name}} 
-			</h1>
+			<input type='text' slot="header" class='dark task editable name' v-model='currentItem.name' @change='updateTask("name")'/>
 			<div slot="body" class='modal-body'>
 				<div class="main">
 					<div class="description">
-						<p>
-							{{currentItem.description}}
-						</p>
-						<input type="text" name="task-name" id="task-name" v-model='currentItem.name' @change='updateTask("name")'>
+						<textarea class='task editable description' v-model="currentItem.description" @change='updateTask("description")'></textarea>
 					</div>
 					<div class="comments">
 						<div class="new-comment"></div>
@@ -171,6 +169,7 @@ export default {
 		showTask(task) {
 			this.currentItem = task;
 			this.$refs['show-task'].openModal();
+			this.$store.dispatch('setTask', task);
 		},
 		async updateTask(task) {
 			try {
@@ -295,6 +294,54 @@ form.new-item {
 		padding: 8px;
 		background-color: grey;
 		border-radius: 0;
+	}
+
+	input.editable {
+		border: none;
+	}
+	textarea.editable {
+		border: none;
+		padding: $padding-small;
+		resize: none;
+
+		&.description {
+			width: 100%;
+		}
+	}
+
+	.editable {
+		box-sizing: border-box;
+		background-color: transparent;
+
+		transition: 0.2s ease-out;
+
+		&.name {
+			font-size: $text-large;
+			font-weight: bold;
+		}
+
+		&.dark {
+			color: $text-alt;
+		}
+
+		&:hover {
+			cursor: pointer;
+		}
+
+		&:focus {
+			background-color: $color-background-smokey;
+
+			border-radius: 5px;
+
+			&.dark {
+				color: $text-primary;
+				background-color: white;
+			}
+
+			&:hover {
+				cursor: auto;
+			}
+		}
 	}
 }
 </style>

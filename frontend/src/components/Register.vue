@@ -1,10 +1,16 @@
 <template>
 	<div id='app-register'>
-		<div class='registerForm'>
-			<h1>Register</h1>
+		<div class='form'>
+			<h1 class='form-title'>Register</h1>
 			<div v-if="error" class='error'>{{error}}</div>
-			<input v-on:keyup.enter='register' v-model="email" type='text' name='email' placeholder='email' />
-			<input v-on:keyup.enter='register' v-model="password" type='password' name='password' placeholder='Password' />
+			<div class="form-group">
+				<label for="register-email">Email</label>
+				<input id='register-email' v-on:keyup.enter='register' v-model="email" type='text' name='email' placeholder='email' />
+			</div>
+			<div class="form-group">
+				<label for="register-password">Password</label>
+			<input id='register-password' v-on:keyup.enter='register' v-model="password" type='password' name='password' placeholder='Password' />
+			</div>
 			<button @click='register'>Submit</button>
 		</div>
 	</div>
@@ -31,9 +37,6 @@ export default {
 
 				this.$store.dispatch('setToken', response.data.token);
 				this.$store.dispatch('setUser', response.data.user);
-
-				console.log('Response: ', response);
-				console.log('Data: ', response.data);
 				const project = await projectServices.create(
 					response.data.user.id,
 					{
@@ -61,7 +64,8 @@ export default {
 	},
 };
 </script>
-<style>
+<style lang='scss'>
+@import '~vars';
 .error {
 	background-color: #d50000;
 	color: white;
@@ -70,27 +74,31 @@ export default {
 }
 
 #app-register {
-	background-color: white;
-	max-width: 1000px;
-	margin: 15vh auto;
 	display: flex;
-	height: 65vh;
-	box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-	font-family: 'Raleway', sans-serif;
-	color: #111;
-}
+	justify-content: center;
+	align-items: center;
 
-.registerForm {
-	margin: 0 auto;
-	width: 50%;
-	padding-left: 5%;
-	padding-right: 5%;
-	display: flex;
-	flex-direction: column;
-}
+	.form {
+		width: 100%;
+		max-width: 800px;
+		margin: 0 auto;
+		min-height: 50%;
+		max-height: 75%;
+		padding-left: $padding-huge;
+		padding-right: $padding-huge;
+		display: flex;
+		flex-flow: column wrap;
+		box-shadow: $box-shadow--large $box-shadow--color-default;
 
-.registerForm h1 {
-	font-weight: 200;
-	font-size: 60px;
+		.form-group {
+			display: flex;
+			flex-flow: column wrap;
+		}
+
+		.form-title {
+			font-weight: 200;
+			font-size: 60px;
+		}
+	}
 }
 </style>

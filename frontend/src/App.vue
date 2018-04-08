@@ -35,8 +35,7 @@ html,
 
 html,
 body {
-	// min-height: 100%;
-	// min-height: 100vh;
+	font-size: 16px;
 	margin: 0;
 }
 

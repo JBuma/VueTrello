@@ -1,9 +1,7 @@
 <template>
   <div class='card' :class='type'>
 	  <div class='card-title'><slot name='title'></slot></div>
-    <div class='card-body'>
       <slot name='body'></slot>
-    </div>
     <div class='card-description'>
       <slot name='description'></slot>
     </div>

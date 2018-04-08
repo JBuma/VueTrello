@@ -32,6 +32,8 @@ process.on('SIGINT', () => {
 
 sequelize.sync().then(() => {
 	app.listen(config.port, function () {
-		console.log('server started on port ' + config.port);
+		console.log(
+			process.env.NODE_ENV + ' server started on port ' + config.port
+		);
 	});
 });

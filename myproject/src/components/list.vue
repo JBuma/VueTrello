@@ -152,5 +152,40 @@ export default {
 			border-bottom: 3px solid $color-primary-light;
 		}
 	}
+
+	.editable {
+		box-sizing: border-box;
+		background-color: transparent;
+
+		transition: 0.2s ease-out;
+
+		&.name {
+			font-size: $text-large;
+			font-weight: bold;
+		}
+
+		&.dark {
+			color: $text-alt;
+		}
+
+		&:hover {
+			cursor: pointer;
+		}
+
+		&:focus {
+			background-color: $color-background-smokey;
+
+			border-radius: 5px;
+
+			&.dark {
+				color: $text-primary;
+				background-color: white;
+			}
+
+			&:hover {
+				cursor: auto;
+			}
+		}
+	}
 }
 </style>

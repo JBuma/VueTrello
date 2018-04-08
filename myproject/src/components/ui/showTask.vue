@@ -59,6 +59,12 @@
 									Checklist
 								</button>
 							</li>
+							<!-- TODO: Get confirmation for deletion,Popup or undo message????? -->
+							<li>
+								<button class='red' @click='deleteTask'>
+									Delete
+								</button>
+							</li>
 						</ul>
 					</div>
 				</div>
@@ -91,6 +97,9 @@ export default {
 			} catch (err) {
 				alert(err);
 			}
+		},
+		async deleteTask() {
+			console.log(this.task.id);
 		},
 	},
 };
@@ -170,6 +179,12 @@ export default {
 
 					& > li {
 						margin-bottom: $padding-small;
+
+						button {
+							&.red {
+								background-color: $color-error;
+							}
+						}
 					}
 				}
 			}

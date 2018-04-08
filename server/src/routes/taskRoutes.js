@@ -68,4 +68,23 @@ router.post('/item/:itemId/task/:taskId', async function (req, res) {
 	}
 });
 
+// DELETE
+router.delete('/item/:itemId/task/:taskId', async function (req, res) {
+	try {
+		const task = await Task.findOne({
+			where: {
+				id: req.params.taskId,
+				itemId: req.params.itemId,
+			},
+		});
+		task.destroy().then(() => {
+			res.status(200).send('ye');
+		});
+	} catch (err) {
+		res.status(500).send({
+			error: err,
+		});
+	}
+});
+
 module.exports = router;

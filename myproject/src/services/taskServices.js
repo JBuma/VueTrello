@@ -19,4 +19,10 @@ export default {
 			task,
 		);
 	},
+	delete(task) {
+		return Api().delete(
+			`${baseUrl}item/${task.ItemId}/task/${task.id}`,
+			task,
+		);
+	},
 };

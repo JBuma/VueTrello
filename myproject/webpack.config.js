@@ -69,7 +69,7 @@ if (process.env.NODE_ENV === 'production') {
 		new webpack.DefinePlugin({
 			'process.env': {
 				NODE_ENV: '"production"',
-				BASE_URL: '"45.76.39.40"',
+				BASE_URL: '"https://testerino.space"',
 			},
 		}),
 		new webpack.optimize.UglifyJsPlugin({

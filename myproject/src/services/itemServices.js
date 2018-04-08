@@ -1,7 +1,7 @@
 import Api from './Api';
 import Config from './config';
 
-var baseUrl = Config.baseURL;
+var baseUrl = `${Config.baseURL}:${Config.port}/`;
 
 export default {
 	index(projectId) {

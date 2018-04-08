@@ -24,17 +24,26 @@ export default {
 	methods: {
 		async login() {
 			try {
-				const response = await authentication.login({
-					email: this.email,
-					password: this.password,
-				});
+				const response = await authentication
+					.login({
+						email: this.email,
+						password: this.password,
+					})
+					.catch(err => {
+						console.log(err);
+					});
+				console.log(response);
 				this.$store.dispatch('setToken', response.data.token);
 				this.$store.dispatch('setUser', response.data.user);
 				this.$router.push('/projects');
 			} catch (err) {
+				console.log(err);
 				this.error = err.response.data.error;
 			}
 		},
+	},
+	mounted() {
+		console.log(authentication.url);
 	},
 };
 </script>

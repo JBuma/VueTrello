@@ -80,5 +80,11 @@ button {
 		background-color: teal;
 		box-shadow: 0px 3px 10px 0px rgba(0, 50, 0, 0.6);
 	}
+	&.red {
+		background-color: $color-error;
+	}
+	&.green {
+		background-color: $color-succes;
+	}
 }
 </style>

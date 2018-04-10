@@ -8,6 +8,7 @@ module.exports = {
     'comma-dangle': ['error', 'always'],
     semi: ['error', 'always'],
     'no-tabs': 0,
-    indent: ['error', 'tab']
+	indent: ['error', 'tab'],
+	"object-curly-spacing": "off"
   }
 }

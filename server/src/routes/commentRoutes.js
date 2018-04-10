@@ -79,7 +79,7 @@ router.delete('/task/:taskId/comment/:commentId', async function (req, res) {
 			},
 		});
 		comment.destroy().then(() => {
-			res.status(200).send('ye');
+			res.status(200).send('Comment succesfully deleted');
 		});
 	} catch (err) {
 		res.status(500).send({

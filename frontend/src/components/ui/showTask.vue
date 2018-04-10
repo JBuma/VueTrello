@@ -18,14 +18,9 @@
 						<h1>Comments</h1>
 						<div class="new-comment">
 							<div class="editable-wrapper task editable  area">
-							<textarea class='description' oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
-							<button class='green'>Save</button>
-						</div>
-						</div>
-						<div class="comment">
-							<div class="commenter"></div>
-							<h3>Name McName</h3>
-							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, deleniti ut voluptate, quia ad perspiciatis voluptates voluptas laboriosam modi voluptatem laudantium. Deserunt dignissimos quis aut consequuntur. Asperiores non animi laboriosam!</p>
+								<textarea class='description' v-model='newComment.comment' oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
+								<button class='green' @click='postComment()'>Save</button>
+							</div>
 						</div>
 						<div v-for="comment in this.comments" :key="comment.id" class="comment">
 							<h3>{{comment.authorId}}</h3>
@@ -100,12 +95,20 @@ export default {
 		return {
 			task: {},
 			comments: [],
+			newComment: {
+				TaskId: '',
+				comment: '',
+				authorId: this.$store.state.user.id,
+			},
 		};
 	},
 	methods: {
 		async open() {
 			try {
-				this.task = { ...this.$store.state.task };
+				this.task = {
+					...this.$store.state.task,
+				};
+				this.newComment.TaskId = this.task.id;
 				const comments = await commentServices
 					.index(this.task.id)
 					.then(comments => {
@@ -125,7 +128,32 @@ export default {
 			}
 		},
 		async deleteTask() {
-			console.log(this.task.id);
+			try {
+				const message = await taskServices
+					.delete(this.task)
+					.then(message => {
+						console.log(message);
+					});
+			} catch (err) {
+				alert(err);
+			}
+		},
+		async postComment() {
+			try {
+				console.log('posting...');
+				if (this.newComment.comment !== '') {
+					console.log('posting...');
+					const response = await commentServices
+						.create(this.task.id, this.newComment)
+						.then(response => {
+							this.comments.push(response.data);
+							console.log(response);
+						});
+				}
+			} catch (err) {
+				console.log(err);
+				alert(err);
+			}
 		},
 	},
 };
@@ -136,8 +164,7 @@ export default {
 #show-task {
 	.modal-content {
 		min-width: 70vw;
-		min-height: 90vh;
-		// width: 50%;
+		min-height: 90vh; // width: 50%;
 		max-width: 400px;
 	}
 
@@ -225,8 +252,7 @@ export default {
 
 	button {
 		font-size: 16px;
-		padding: 8px;
-		// background-color: grey;
+		padding: 8px; // background-color: grey;
 		border-radius: 0;
 	}
 

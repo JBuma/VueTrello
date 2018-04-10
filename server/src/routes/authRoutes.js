@@ -26,7 +26,10 @@ router.post('/register', authPolicy.register, async function (req, res) {
 		const userJson = user.toJSON();
 		// Send user info + Project link
 		res.send({
-			user: userJson,
+			user: {
+				email: userJson.email,
+				id: userJson.id,
+			},
 			token: jwtSignUser(userJson),
 		});
 	} catch (err) {
@@ -36,6 +39,7 @@ router.post('/register', authPolicy.register, async function (req, res) {
 	}
 });
 
+// Login
 router.post('/login', async function (req, res) {
 	try {
 		const { email, password, } = req.body;
@@ -60,7 +64,10 @@ router.post('/login', async function (req, res) {
 
 		const userJson = user.toJSON();
 		res.send({
-			user: userJson,
+			user: {
+				email: userJson.email,
+				id: userJson.id,
+			},
 			token: jwtSignUser(userJson),
 		});
 	} catch (err) {

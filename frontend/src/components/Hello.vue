@@ -1,7 +1,7 @@
 <template>
-	<div>
-		<banner>Hello I am hello</banner>
+		
 		<section id='intro'>
+			<banner>Hello I am hello</banner>
 			<card type='centered'>
 				<h1 slot="title" >Hello there</h1>
 				<div slot="description" >
@@ -11,7 +11,6 @@
 				</div>
 			</card>
 		</section>
-	</div>
 </template>
 <script>
 import Banner from './Banner.vue';

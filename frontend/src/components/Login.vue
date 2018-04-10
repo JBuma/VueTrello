@@ -33,20 +33,15 @@ export default {
 						email: this.email,
 						password: this.password,
 					})
-					.catch(err => {
-						console.log(err);
+					.then(res => {
+						this.$store.dispatch('setToken', response.data.token);
+						this.$store.dispatch('setUser', response.data.user);
+						this.$router.push('/projects');
 					});
-				this.$store.dispatch('setToken', response.data.token);
-				this.$store.dispatch('setUser', response.data.user);
-				this.$router.push('/projects');
 			} catch (err) {
-				console.log(err);
 				this.error = err.response.data.error;
 			}
 		},
-	},
-	mounted() {
-		console.log(authentication.url);
 	},
 };
 </script>

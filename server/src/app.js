@@ -21,11 +21,13 @@ const authRoutes = require('./routes/authRoutes');
 const projectRoutes = require('./routes/projectRoutes');
 const itemRoutes = require('./routes/itemRoutes');
 const taskRoutes = require('./routes/taskRoutes');
+const commentRoutes = require('./routes/commentRoutes');
 
 app.use(authRoutes);
 app.use(projectRoutes);
 app.use(itemRoutes);
 app.use(taskRoutes);
+app.use(commentRoutes);
 
 process.on('SIGINT', () => {
 	console.log('Bye bye!');

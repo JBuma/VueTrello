@@ -14,4 +14,7 @@ export default {
 	create(userId, info) {
 		return Api().post(baseUrl + 'user/' + userId + '/projects/new', info);
 	},
+	update(userId, project) {
+		return Api().put(`${baseUrl}user/${userId}/project/${project.id}`);
+	},
 };

@@ -69,6 +69,8 @@ export default {
 		background-color: $color-background-light;
 		min-height: 50vh;
 		min-width: 50vw;
+		max-height: 100vh;
+		max-width: 100vw;
 		color: $text-primary;
 
 		.modal-header,

@@ -5,6 +5,7 @@ import Register from '../components/Register'
 import singleProject from '../components/Project.vue'
 import Login from '../components/Login.vue'
 import ProjectList from '../components/ProjectList.vue'
+import NotFound from '../components/NotFound.vue'
 
 Vue.use(Router)
 
@@ -34,7 +35,12 @@ export default new Router({
       path: '/projects',
       name:'projects',
       component: ProjectList
-    }
+	},
+	{
+		path:'*',
+		name:'404',
+		component:NotFound
+	}
   ],
   mode: 'history'
 })

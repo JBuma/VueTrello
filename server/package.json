@@ -4,8 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start":
-			"cross-env NODE_ENV=development nodemon src/app.js --exec \"npm run lint && node\"",
+		"start": "cross-env NODE_ENV=development nodemon src/app.js --exec \"npm run lint && node\"",
 		"lint": "eslint src/**/*.js",
 		"prod": "cross-env NODE_ENV=production nodemon src/app.js"
 	},
@@ -29,6 +28,7 @@
 		"morgan": "^1.9.0",
 		"nodemon": "^1.12.1",
 		"passport": "^0.4.0",
+		"passport-jwt": "^4.0.0",
 		"passport-local": "^1.0.0",
 		"passport-local-mongoose": "^4.4.0",
 		"sequelize": "^4.25.1",

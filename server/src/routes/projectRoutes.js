@@ -1,9 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const { Project, } = require('../models');
+const isAuthenticated = require('../policies/isAuthenticated');
 
 // create route
-router.post('/user/:userId/projects/new', async function (req, res) {
+router.post('/user/:userId/projects/new', isAuthenticated, async function (
+	req,
+	res
+) {
 	try {
 		const project = await Project.create(req.body);
 		res.send(project.toJSON());
@@ -15,7 +19,10 @@ router.post('/user/:userId/projects/new', async function (req, res) {
 });
 
 // Show route
-router.get('/user/:userId/project/:projectId', async function (req, res) {
+router.get('/user/:userId/project/:projectId', isAuthenticated, async function (
+	req,
+	res
+) {
 	try {
 		const project = await Project.findOne({
 			where: { id: req.params.projectId, authorId: req.params.userId, },
@@ -30,7 +37,10 @@ router.get('/user/:userId/project/:projectId', async function (req, res) {
 });
 
 // index route
-router.get('/user/:userId/projects/', async function (req, res) {
+router.get('/user/:userId/projects/', isAuthenticated, async function (
+	req,
+	res
+) {
 	try {
 		const projectList = await Project.findAll({
 			where: {
@@ -47,7 +57,10 @@ router.get('/user/:userId/projects/', async function (req, res) {
 });
 
 // Update
-router.post('/user/:userId/project/:projectId', async function (req, res) {
+router.post('/user/:userId/project/:projectId', isAuthenticated, async function (
+	req,
+	res
+) {
 	try {
 		const project = await Project.findOne({
 			where: {

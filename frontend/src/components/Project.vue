@@ -71,6 +71,10 @@ export default {
 		};
 	},
 	async mounted() {
+		if (!this.$store.state.isUserLoggedIn) {
+			this.$router.go(-1);
+			return;
+		}
 		try {
 			const response = await projectServices.show(
 				this.$store.state.user.id,

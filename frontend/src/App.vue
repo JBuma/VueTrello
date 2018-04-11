@@ -1,5 +1,6 @@
 <template>
 	<div id="app">
+		<alertBox/>
 		<navHeader></navHeader>
 		<router-view></router-view>
 	</div>
@@ -7,10 +8,12 @@
 
 <script>
 import navHeader from './components/header.vue';
+import alertBox from './components/ui/alertBox.vue';
 
 export default {
 	components: {
 		navHeader: navHeader,
+		alertBox,
 	},
 	name: 'app',
 	data() {

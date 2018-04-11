@@ -36,6 +36,10 @@ export default {
 					.then(response => {
 						this.$store.dispatch('setToken', response.data.token);
 						this.$store.dispatch('setUser', response.data.user);
+						this.$store.dispatch('setAlert', {
+							message: `You've been succesfully logged in!`,
+							type: 'succes',
+						});
 						this.$router.push('/projects');
 					})
 					.catch(err => {

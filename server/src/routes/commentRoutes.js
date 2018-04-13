@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Comment, } = require('../models');
+const { Comment, User, } = require('../models');
 
 // CREATE
 router.post('/task/:taskId/comments/new', async function (req, res) {
@@ -8,7 +8,6 @@ router.post('/task/:taskId/comments/new', async function (req, res) {
 		const comment = await Comment.create(req.body);
 		res.status(200).send(comment.toJSON());
 	} catch (err) {
-		console.log(err);
 		res.status(500).send({
 			error: err,
 		});
@@ -23,6 +22,9 @@ router.get('/task/:taskId/comment/:commentId', async function (req, res) {
 				id: req.params.commentId,
 				taskId: req.params.taskId,
 			},
+			/* eslint-disable*/
+			include: [User],
+			/* eslint-enable */
 		});
 		res.status(200).send(comment.toJSON());
 	} catch (err) {
@@ -39,6 +41,9 @@ router.get('/task/:taskId/comments', async function (req, res) {
 			where: {
 				taskId: req.params.taskId,
 			},
+			/* eslint-disable*/
+			include: [User],
+			/* eslint-enable */
 		});
 		res.status(200).send({ commentList, });
 	} catch (err) {

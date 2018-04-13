@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const isAuthenticated = require('../policies/isAuthenticated');
-const { Task, } = require('../models');
+const { Task, User, } = require('../models');
 
 // CREATE
 router.post('/item/:itemId/tasks/new', isAuthenticated, async function (
@@ -29,6 +29,9 @@ router.get('/item/:itemId/task/:taskId', isAuthenticated, async function (
 				id: req.params.taskId,
 				itemId: req.params.itemId,
 			},
+			/* eslint-disable*/
+			include: [User],
+			/* eslint-enable */
 		});
 		res.status(200).send(task.toJSON());
 	} catch (err) {
@@ -45,6 +48,9 @@ router.get('/item/:itemId/tasks', isAuthenticated, async function (req, res) {
 			where: {
 				itemId: req.params.itemId,
 			},
+			/* eslint-disable*/
+			include: [User],
+			/* eslint-enable */
 		});
 		res.status(200).send({ taskList, });
 	} catch (err) {
@@ -66,6 +72,9 @@ router.post('/item/:itemId/task/:taskId', isAuthenticated, async function (
 				id: req.params.taskId,
 				itemId: req.params.itemId,
 			},
+			/* eslint-disable*/
+			include: [User],
+			/* eslint-enable */
 		});
 		task.update(newTask).then(() => {
 			// console.log('UPDATED', task);

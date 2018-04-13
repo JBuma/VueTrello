@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<alertBox/>
+		<alertBox v-if="this.$store.state.alert"/>
 		<navHeader></navHeader>
 		<router-view></router-view>
 	</div>

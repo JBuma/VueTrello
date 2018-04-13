@@ -30,6 +30,8 @@ app.use(itemRoutes);
 app.use(taskRoutes);
 app.use(commentRoutes);
 
+/* eslint-disable no-console */
+
 process.on('SIGINT', () => {
 	console.log('Bye bye!');
 	process.exit();

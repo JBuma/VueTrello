@@ -5,7 +5,6 @@ var baseUrl = `${Config.baseURL}:${Config.port}/`;
 
 export default {
 	index(userId) {
-		console.log('userId: ', userId);
 		return Api().get(baseUrl + 'user/' + userId + '/projects');
 	},
 	show(userId, projectId) {

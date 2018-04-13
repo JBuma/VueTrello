@@ -42,7 +42,7 @@ export default {
 					{
 						name: 'My First Project',
 						description: 'Demo Project',
-						authorId: response.data.user.id,
+						UserId: response.data.user.id,
 						content: 'empty',
 					},
 				);
@@ -50,7 +50,7 @@ export default {
 				itemServices.create(project.data.id, {
 					name: 'My First Item',
 					ProjectId: project.data.id,
-					authorId: response.data.user.id,
+					UserId: response.data.user.id,
 					description: 'EMPTY',
 					dueDate: 'TOMORROW',
 				});

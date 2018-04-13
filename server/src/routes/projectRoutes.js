@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Project, } = require('../models');
+const { Project, User, } = require('../models');
 const isAuthenticated = require('../policies/isAuthenticated');
 
 // create route
@@ -25,7 +25,10 @@ router.get('/user/:userId/project/:projectId', isAuthenticated, async function (
 ) {
 	try {
 		const project = await Project.findOne({
-			where: { id: req.params.projectId, authorId: req.params.userId, },
+			where: { id: req.params.projectId, UserId: req.params.userId, },
+			/* eslint-disable*/
+			include: [User],
+			/* eslint-enable */
 		});
 		// var projectJson = project.toJSON();
 		res.send(project.toJSON());
@@ -44,14 +47,17 @@ router.get('/user/:userId/projects/', isAuthenticated, async function (
 	try {
 		const projectList = await Project.findAll({
 			where: {
-				authorId: req.params.userId,
+				UserId: req.params.userId,
 			},
+			/* eslint-disable*/
+			include: [User],
+			/* eslint-enable */
 		});
 		res.status(200).send({ projectList, });
 	} catch (err) {
 		res.status(500).send({
 			error:
-				'An error has occured creating your project, please try again',
+				'An error has occured fetching your projects, please try again',
 		});
 	}
 });
@@ -64,9 +70,12 @@ router.post('/user/:userId/project/:projectId', isAuthenticated, async function 
 	try {
 		const project = await Project.findOne({
 			where: {
-				authorId: req.params.userId,
+				UserId: req.params.userId,
 				id: req.params.projectId,
 			},
+			/* eslint-disable*/
+			include: [User],
+			/* eslint-enable */
 		});
 		project.update(req.body).then(() => {
 			res.status(200).send(project.toJSON());

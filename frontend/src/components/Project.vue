@@ -92,7 +92,7 @@ export default {
 			try {
 				var newItem = await itemServices.create(
 					this.$route.params.projectId,
-					this.newItem,
+					{ ...this.newItem, UserId: this.$store.state.user.id },
 				);
 				this.items.push(newItem.data);
 			} catch (err) {

@@ -1,5 +1,6 @@
 <template>
 	<nav id='navHeader'>
+		<div class='menu item link' id='menu-open'>Open Menu</div>
 		<div class='menu item link' @click="navTo({name:'home'})" id='logo'>LOGO</div>
 		<div v-if='!$store.state.isUserLoggedIn' class='menu items'>
 			<div @click='navTo({name:"login"})' class='menu item link'>Login</div>
@@ -20,13 +21,13 @@ export default {
 		navTo(route) {
 			this.$router.push(route);
 		},
-		makeRequest(route) {
-			this.$http
-				.get('http://localhost:3000/isLoggedIn')
-				.then(function(data) {
-					console.log('Userdata: ', data);
-				});
-		},
+		// makeRequest(route) {
+		// 	this.$http
+		// 		.get('http://localhost:3000/isLoggedIn')
+		// 		.then(function(data) {
+		// 			console.log('Userdata: ', data);
+		// 		});
+		// },
 		logout() {
 			this.$store.dispatch('setToken', null);
 			this.$store.dispatch('setUser', null);

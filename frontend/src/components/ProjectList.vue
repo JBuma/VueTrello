@@ -1,8 +1,8 @@
 <template>
 	<div>
-		<modal name='test' ref='test'>
-			<h1>New project</h1>
-			<form nosubmit class='new-project'>
+		<modal name='project-new' ref='project-new'>
+			<h1 slot="header">New project</h1>
+			<form nosubmit class='new-project' slot="body">
 				<label>Project Name</label>
 				<input type='text' v-model="newProject.name">
 				<label>Project Description</label>
@@ -13,7 +13,7 @@
 
 		<banner>Your Projects
 			<div class='banner-controls' slot='controls'>
-				<button @click='openModal("test")'>New</button>
+				<button @click='openModal("project-new")'>New</button>
 				<button>Select</button>
 			</div>
 			<p slot='description'>Hello i am test</p>
@@ -37,9 +37,6 @@ export default {
 		navTo(route) {
 			this.$router.push(route);
 		},
-		createNew(info) {
-			alert('clicked');
-		},
 		openModal(name) {
 			this.$refs[name].openModal();
 		},
@@ -47,7 +44,7 @@ export default {
 			try {
 				var newProject = await projectServices.create(
 					this.$store.state.user.id,
-					this.newProject,
+					{ ...this.newProject, UserId: this.$store.state.user.id },
 				);
 				console.log(newProject);
 				this.$router.push('/projects/' + newProject.data.id);

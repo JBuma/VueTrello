@@ -40,7 +40,7 @@ export default {
 				if (this.newTask.name !== '') {
 					const task = await taskServices.create(
 						this.$store.state.user.id,
-						this.newTask,
+						{ ...this.newTask, UserId: this.$store.state.user.id },
 					);
 					this.tasks.push(task.data);
 					this.newTask.name = '';

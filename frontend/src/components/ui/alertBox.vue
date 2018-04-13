@@ -1,6 +1,6 @@
 <template>
 	<transition name='alert-enter'>
-		<div v-if="this.$store.state.alert" id="alert-box" :class='this.$store.state.alert.type'>
+		<div id="alert-box" :class='this.$store.state.alert.type'>
 			<h3>{{this.$store.state.alert.message}}</h3>
 		</div>
 	</transition>
@@ -9,7 +9,7 @@
 <script>
 export default {
 	mounted() {
-		const vanish = document.setTimeout(() => {
+		const vanish = setTimeout(() => {
 			this.$store.dispatch('setAlert', null);
 			clearTimeout(vanish);
 		}, 5000);

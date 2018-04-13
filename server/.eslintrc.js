@@ -1,14 +1,15 @@
 module.exports = {
-  extends: 'standard',
-  rules: {
-    // allow async-await
-    'generator-star-spacing': 'off',
-    // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'comma-dangle': ['error', 'always'],
-    semi: ['error', 'always'],
-    'no-tabs': 0,
-	indent: ['error', 'tab'],
-	"object-curly-spacing": "off"
-  }
-}
+	extends: 'standard',
+	rules: {
+		// allow async-await
+		'generator-star-spacing': 'off',
+		// allow debugger during development
+		'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+		'comma-dangle': ['error', 'always', ],
+		semi: ['error', 'always', ],
+		'no-tabs': 0,
+		indent: ['error', 'tab', ],
+		'object-curly-spacing': 'off',
+		'array-bracket-spacing': 0,
+	},
+};

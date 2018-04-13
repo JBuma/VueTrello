@@ -7,7 +7,6 @@ module.exports = function (req, res, next) {
 				error: 'You do not have access to that',
 			});
 		} else {
-			console.log('======AUTHENTICATED=====');
 			req.user = user;
 			next();
 		}

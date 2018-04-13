@@ -12,7 +12,6 @@ function hashPassword (user, options) {
 		.genSaltAsync(SALT_FACTOR)
 		.then(salt => bcrypt.hashAsync(user.password, salt, null))
 		.then(hash => {
-			console.log(user.password);
 			user.setDataValue('password', hash);
 		});
 }
@@ -31,13 +30,19 @@ module.exports = (sequelize, DataTypes) => {
 			hooks: {
 				beforeCreate: hashPassword,
 				beforeUpdate: hashPassword,
-				// beforeSave: hashPassword
 			},
 		}
 	);
 
 	User.prototype.comparePassword = function (password) {
 		return bcrypt.compareAsync(password, this.password);
+	};
+
+	User.associate = function (models) {
+		User.hasMany(models.Comment);
+		User.hasMany(models.Task);
+		User.hasMany(models.Project);
+		User.hasMany(models.Item);
 	};
 
 	return User;

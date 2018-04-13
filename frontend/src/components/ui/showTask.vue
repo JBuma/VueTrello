@@ -23,8 +23,9 @@
 							</div>
 						</div>
 						<div v-for="comment in this.comments" :key="comment.id" class="comment">
-							<h3>{{comment.authorId}}</h3>
+							<h3>{{comment.User.email}}</h3>
 							<p>{{comment.comment}}</p>
+							<small>{{comment.createdAt}}</small>
 						</div>
 					</div>
 
@@ -140,14 +141,14 @@ export default {
 		},
 		async postComment() {
 			try {
-				console.log('posting...');
 				if (this.newComment.comment !== '') {
-					console.log('posting...');
 					const response = await commentServices
-						.create(this.task.id, this.newComment)
+						.create(this.task.id, {
+							...this.newComment,
+							UserId: this.$store.state.user.id,
+						})
 						.then(response => {
 							this.comments.push(response.data);
-							console.log(response);
 						});
 				}
 			} catch (err) {

@@ -59,8 +59,8 @@ export default {
 	height: 100vh;
 	min-width: 200px;
 	width: 20vw;
-	background-color: #222227;
-	color: white;
+	background-color: $color-background-light;
+	// color: white;
 	max-width: 300px;
 	z-index: 2;
 

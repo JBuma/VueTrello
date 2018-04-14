@@ -25,22 +25,23 @@ export default {
 			info: {},
 			newTask: {
 				name: '',
-				authorId: this.$store.state.user.id,
+				UserId: this.$store.state.user.id,
 				description: 'PLACEHOLDER',
 				dueDate: 'PLACEHOLDER',
 				isFinished: false,
-				ItemId: this.itemId,
+				ItemId: this.item.id,
 			},
-			tasks: [],
+			Tasks: [],
 		};
 	},
 	methods: {
 		async createTask() {
 			try {
 				if (this.newTask.name !== '') {
+					console.log(this.newTask);
 					const task = await taskServices.create(
-						this.$store.state.user.id,
-						{ ...this.newTask, UserId: this.$store.state.user.id },
+						this.item.id,
+						this.newTask,
 					);
 					this.item.Tasks.push(task.data);
 					this.newTask.name = '';

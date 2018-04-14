@@ -29,14 +29,16 @@ router.post('/register', authPolicy.register, async function (req, res) {
 		// Send user info + Project link
 		res.send({
 			user: {
+				username: userJson.username,
 				email: userJson.email,
 				id: userJson.id,
 			},
 			token: jwtSignUser(userJson),
 		});
 	} catch (err) {
+		console.log(err);
 		res.status(400).send({
-			error: 'This email is already in use',
+			error: err,
 		});
 	}
 });
@@ -67,6 +69,7 @@ router.post('/login', async function (req, res) {
 		const userJson = user.toJSON();
 		res.send({
 			user: {
+				username: userJson.username,
 				email: userJson.email,
 				id: userJson.id,
 			},

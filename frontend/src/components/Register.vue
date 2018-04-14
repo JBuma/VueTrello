@@ -4,8 +4,12 @@
 			<h1 class='form-title'>Register</h1>
 			<div v-if="error" class='error'>{{error}}</div>
 			<div class="form-group">
+				<label for="register-username">Username</label>
+				<input id='register-username' v-on:keyup.enter='register' v-model="username" type='text' name='username' placeholder='Username' />
+			</div>
+			<div class="form-group">
 				<label for="register-email">Email</label>
-				<input id='register-email' v-on:keyup.enter='register' v-model="email" type='text' name='email' placeholder='email' />
+				<input id='register-email' v-on:keyup.enter='register' v-model="email" type='text' name='email' placeholder='Email' />
 			</div>
 			<div class="form-group">
 				<label for="register-password">Password</label>
@@ -22,6 +26,7 @@ import itemServices from '../services/itemServices';
 export default {
 	data() {
 		return {
+			username: '',
 			email: '',
 			password: '',
 			error: null,
@@ -31,6 +36,7 @@ export default {
 		async register() {
 			try {
 				const response = await authentication.register({
+					username: this.username,
 					email: this.email,
 					password: this.password,
 				});

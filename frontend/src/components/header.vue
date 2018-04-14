@@ -6,8 +6,7 @@
 			<div @click='navTo({name:"register"})' class='menu item link'>Signup</div>
 		</div>
 		<div v-if='$store.state.isUserLoggedIn' class='menu items'>
-			<div @click="openMenu('user')" class='menu item link'>Welcome, {{$store.state.user.email}}</div>
-			<div @click='logout()' class='menu item link'>Logout</div>
+			<div @click="openMenu('user')" class='menu item link'>Welcome, {{$store.state.user.username}}</div>
 		</div>
 	</nav>
 </template>
@@ -27,11 +26,6 @@ export default {
 		// 			console.log('Userdata: ', data);
 		// 		});
 		// },
-		logout() {
-			this.$store.dispatch('setToken', null);
-			this.$store.dispatch('setUser', null);
-			this.$router.push({ name: 'home' });
-		},
 		openMenu(name) {
 			this.$emit('open-menu', name);
 		},

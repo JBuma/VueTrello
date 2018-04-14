@@ -77,11 +77,11 @@ export default {
 				this.$route.params.projectId,
 			);
 			this.projectInfo = response.data;
-
-			const items = await itemServices.index(
-				this.$route.params.projectId,
-			);
-			this.items = items.data.itemList;
+			// this.items = projectInfo.Items;
+			// const items = await itemServices.index(
+			// 	this.$route.params.projectId,
+			// );
+			// this.items = items.data.itemList;
 		} catch (err) {
 			console.log(err);
 			alert(err, 'More info in console');

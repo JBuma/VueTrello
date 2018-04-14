@@ -23,7 +23,7 @@
 							</div>
 						</div>
 						<div v-for="comment in this.comments" :key="comment.id" class="comment">
-							<h3>{{comment.User.email}}</h3>
+							<h3>{{comment.User.username}}</h3>
 							<p>{{comment.comment}}</p>
 							<small>{{comment.createdAt}}</small>
 						</div>

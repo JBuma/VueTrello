@@ -11,6 +11,7 @@ export default {
 		return Api().get(baseUrl + 'item/' + itemId + '/task/' + taskId);
 	},
 	create(itemId, info) {
+		console.log('Services:', info);
 		return Api().post(baseUrl + 'item/' + itemId + '/tasks/new', info);
 	},
 	update(task) {

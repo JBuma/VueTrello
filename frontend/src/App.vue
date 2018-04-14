@@ -3,20 +3,20 @@
 		<alertBox v-if="this.$store.state.alert"/>
 		<navHeader @open-menu='openMenu' ></navHeader>
 		<router-view></router-view>
-		<side-menu ref='user' position='right' v-if="this.$store.state.isUserLoggedIn" />
+		<user-menu ref='user' position='right' v-if="this.$store.state.isUserLoggedIn" />
 	</div>
 </template>
 
 <script>
 import navHeader from './components/header.vue';
 import alertBox from './components/ui/alertBox.vue';
-import sideMenu from './components/ui/sideMenu.vue';
+import userMenu from './components/ui/userMenu.vue';
 
 export default {
 	components: {
 		navHeader,
 		alertBox,
-		sideMenu,
+		userMenu,
 	},
 	name: 'app',
 	data() {

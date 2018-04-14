@@ -7,7 +7,6 @@ router.name = 'Comments';
 // CREATE
 router.post('/task/:taskId/comments/new', async function (req, res) {
 	try {
-		// const comment = await Comment.create(req.body)
 		Comment.create(req.body).then(comment => {
 			Comment.findOne({
 				where: {

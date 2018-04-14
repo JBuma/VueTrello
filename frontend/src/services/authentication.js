@@ -13,7 +13,4 @@ export default {
 	login(credentials) {
 		return Api().post(baseUrl + 'login', credentials);
 	},
-	test(info) {
-		return Api().get(`${baseUrl}`);
-	},
 };

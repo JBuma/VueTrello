@@ -11,6 +11,7 @@ router.post('/item/:itemId/tasks/new', isAuthenticated, async function (
 	res
 ) {
 	try {
+		console.log(req.body);
 		const task = await Task.create(req.body);
 		res.status(200).send(task.toJSON());
 	} catch (err) {
@@ -32,7 +33,10 @@ router.get('/item/:itemId/task/:taskId', isAuthenticated, async function (
 				itemId: req.params.itemId,
 			},
 			/* eslint-disable*/
-			include: [User],
+			include: {
+				model: User,
+				exclude: password,
+			},
 			/* eslint-enable */
 		});
 		res.status(200).send(task.toJSON());
@@ -51,7 +55,13 @@ router.get('/item/:itemId/tasks', isAuthenticated, async function (req, res) {
 				itemId: req.params.itemId,
 			},
 			/* eslint-disable*/
-			include: [User, Comment],
+			include: [
+				{
+					model: User,
+					exclude: password,
+				},
+				{ model: Comment },
+			],
 			/* eslint-enable */
 		});
 		res.status(200).send({ taskList, });

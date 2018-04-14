@@ -7,7 +7,7 @@
 			<slot name='description'></slot>
 		</div>
 		<div class='list-body'>
-			<div class='task' v-for="task in tasks" :key='task.id' v-bind:class="{'is-finished':task.isFinished}" @click='showTask(task.id)'>
+			<div class='task' v-for="task in item.Tasks" :key='task.id' v-bind:class="{'is-finished':task.isFinished}" @click='showTask(task.id)'>
 				<p>{{task.name}}</p>
 			</div>
 		</div>
@@ -19,7 +19,7 @@
 <script>
 import taskServices from '../services/taskServices';
 export default {
-	props: ['itemId', 'tasksNew'],
+	props: ['item', 'tasksNew'],
 	data() {
 		return {
 			info: {},
@@ -42,7 +42,7 @@ export default {
 						this.$store.state.user.id,
 						{ ...this.newTask, UserId: this.$store.state.user.id },
 					);
-					this.tasks.push(task.data);
+					this.item.Tasks.push(task.data);
 					this.newTask.name = '';
 				}
 			} catch (error) {
@@ -51,7 +51,7 @@ export default {
 		},
 		async showTask(id) {
 			let taskShow = {};
-			this.tasks.forEach(task => {
+			this.item.Tasks.forEach(task => {
 				if (task.id === id) {
 					taskShow = task;
 					return;
@@ -63,14 +63,9 @@ export default {
 			console.log(ev);
 		},
 	},
-	async mounted() {
-		try {
-			const tasks = await taskServices.index(this.itemId);
-			this.tasks = tasks.data.taskList;
-		} catch (error) {
-			console.log(error);
-		}
-	},
+	// mounted() {
+	// 	this.tasks = this.item.Tasks
+	// },
 };
 </script>
 <style lang='scss'>

@@ -1,23 +1,31 @@
 <template>
 	<div id="app">
 		<alertBox v-if="this.$store.state.alert"/>
-		<navHeader></navHeader>
+		<navHeader @open-menu='openMenu' ></navHeader>
 		<router-view></router-view>
+		<side-menu ref='user' position='right' v-if="this.$store.state.isUserLoggedIn" />
 	</div>
 </template>
 
 <script>
 import navHeader from './components/header.vue';
 import alertBox from './components/ui/alertBox.vue';
+import sideMenu from './components/ui/sideMenu.vue';
 
 export default {
 	components: {
-		navHeader: navHeader,
+		navHeader,
 		alertBox,
+		sideMenu,
 	},
 	name: 'app',
 	data() {
 		return {};
+	},
+	methods: {
+		openMenu(name) {
+			this.$refs[name].toggleMenu();
+		},
 	},
 };
 </script>

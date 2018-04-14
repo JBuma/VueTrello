@@ -148,6 +148,7 @@ export default {
 							UserId: this.$store.state.user.id,
 						})
 						.then(response => {
+							this.newComment.comment = '';
 							this.comments.push(response.data);
 						});
 				}

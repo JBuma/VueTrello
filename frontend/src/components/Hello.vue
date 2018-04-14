@@ -6,7 +6,7 @@
 				<h1 slot="title" >Hello there</h1>
 				<div slot="description" >
 					<p>This is an open source trello clone made with vueJs.
-					It is absolutely not finished, this is just a test server. There is some functionality, but it's not really usable as full product yet. If you have suggestions or want to contribute, the github repo is available below.</p>
+					It is absolutely not finished (especially the design), this is just a test server. There is some functionality, but it's not really usable as full product yet. If you have suggestions or want to contribute, the github repo is available below.</p>
 					<a href="https://github.com/JBuma/VueTrello">This One</a>
 					
 				</div>

@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { Project, User, } = require('../models');
+const { Project, User, Item, Task, } = require('../models');
 const isAuthenticated = require('../policies/isAuthenticated');
+
+router.name = 'Projects';
 
 // create route
 router.post('/user/:userId/projects/new', isAuthenticated, async function (
@@ -27,12 +29,20 @@ router.get('/user/:userId/project/:projectId', isAuthenticated, async function (
 		const project = await Project.findOne({
 			where: { id: req.params.projectId, UserId: req.params.userId, },
 			/* eslint-disable*/
-			include: [User],
+			include: [
+				{
+					model: Item,
+					include: {
+						model: Task,
+					},
+				},
+			],
 			/* eslint-enable */
 		});
 		// var projectJson = project.toJSON();
 		res.send(project.toJSON());
 	} catch (err) {
+		console.log(err);
 		res.status(500).send({
 			error: 'An error has occured fetching your project',
 		});

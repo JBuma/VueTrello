@@ -6,6 +6,7 @@ const config = require('./config/config');
 const { sequelize, } = require('./models');
 const https = require('https');
 const fs = require('fs');
+const path = require('path');
 
 // mongoose.connect('mongodb://localhost/vuetrello')
 
@@ -18,20 +19,16 @@ require('./passport');
 // ==================
 // ROUTES
 // ==================
-const authRoutes = require('./routes/authRoutes');
-const projectRoutes = require('./routes/projectRoutes');
-const itemRoutes = require('./routes/itemRoutes');
-const taskRoutes = require('./routes/taskRoutes');
-const commentRoutes = require('./routes/commentRoutes');
-
-app.use(authRoutes);
-app.use(projectRoutes);
-app.use(itemRoutes);
-app.use(taskRoutes);
-app.use(commentRoutes);
+// Gather routes from routes folder and use them
+fs
+	.readdirSync(path.join(__dirname, '/routes'))
+	.filter(file => file !== 'index.js')
+	.forEach(file => {
+		// const route = require(path.join(__dirname, file));
+		app.use(require(path.join(__dirname, '/routes/', file)));
+	});
 
 /* eslint-disable no-console */
-
 process.on('SIGINT', () => {
 	console.log('Bye bye!');
 	process.exit();

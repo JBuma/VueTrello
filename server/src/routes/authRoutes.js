@@ -12,6 +12,8 @@ function jwtSignUser (user) {
 	});
 }
 
+router.name = 'Authorization';
+
 // IMPORT MODELS
 
 router.get('/', function (req, res) {

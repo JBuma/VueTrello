@@ -8,6 +8,8 @@ module.exports = (sequelize, DataTypes) => {
 
 	Task.associate = function (models) {
 		Task.belongsTo(models.Item);
+		Task.belongsTo(models.User);
+		Task.hasMany(models.Comment);
 	};
 
 	return Task;

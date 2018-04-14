@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const { Item, User, } = require('../models');
 
+router.name = 'Items';
+
 // CREATE
 router.post('/project/:projectId/items/new', async function (req, res) {
 	try {

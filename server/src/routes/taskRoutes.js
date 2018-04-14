@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const isAuthenticated = require('../policies/isAuthenticated');
-const { Task, User, } = require('../models');
+const { Task, User, Comment, } = require('../models');
+
+router.name = 'Tasks';
 
 // CREATE
 router.post('/item/:itemId/tasks/new', isAuthenticated, async function (
@@ -49,11 +51,12 @@ router.get('/item/:itemId/tasks', isAuthenticated, async function (req, res) {
 				itemId: req.params.itemId,
 			},
 			/* eslint-disable*/
-			include: [User],
+			include: [User, Comment],
 			/* eslint-enable */
 		});
 		res.status(200).send({ taskList, });
 	} catch (err) {
+		console.log(err);
 		res.status(500).send({
 			error: err,
 		});

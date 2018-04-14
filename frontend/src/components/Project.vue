@@ -14,7 +14,7 @@
 		</banner>
 		<!-- All the items in the project, every item is in a list which will fetch it's own tasks when mounted -->
 		<div id='itemList'>
-			<list v-for="item in items" :key='item.id' v-bind:item-id='item.id' @show-task='showTask'>
+			<list v-for="item in projectInfo.Items" :key='item.id' v-bind:item='item' @show-task='showTask'>
 				<h3 slot='title'>{{item.name}}</h3>
 				<p slot='description'>{{item.description}}</p>
 			</list>

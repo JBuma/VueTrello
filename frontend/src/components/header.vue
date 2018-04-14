@@ -1,13 +1,12 @@
 <template>
 	<nav id='navHeader'>
-		<div class='menu item link' id='menu-open'>Open Menu</div>
 		<div class='menu item link' @click="navTo({name:'home'})" id='logo'>LOGO</div>
 		<div v-if='!$store.state.isUserLoggedIn' class='menu items'>
 			<div @click='navTo({name:"login"})' class='menu item link'>Login</div>
 			<div @click='navTo({name:"register"})' class='menu item link'>Signup</div>
 		</div>
 		<div v-if='$store.state.isUserLoggedIn' class='menu items'>
-			<div @click='navTo({name:"projects"})' class='menu item link'>Welcome, {{$store.state.user.email}}</div>
+			<div @click="openMenu('user')" class='menu item link'>Welcome, {{$store.state.user.email}}</div>
 			<div @click='logout()' class='menu item link'>Logout</div>
 		</div>
 	</nav>
@@ -32,6 +31,9 @@ export default {
 			this.$store.dispatch('setToken', null);
 			this.$store.dispatch('setUser', null);
 			this.$router.push({ name: 'home' });
+		},
+		openMenu(name) {
+			this.$emit('open-menu', name);
 		},
 	},
 };
